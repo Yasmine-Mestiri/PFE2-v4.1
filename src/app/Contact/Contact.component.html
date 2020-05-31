@@ -1,0 +1,49 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8" style="left: 20%; bottom: -10px">
+        <div class="card" style="left: -8%; top: 39px">
+
+
+          <div class="card-header card-header-info">
+
+            <h4 class="text-center" class="card-title">Contactez-nous</h4>
+          </div><br>
+          <h5 class="text-center"><b>N'hésitez pas à contacter pour toute question,demande d'information,etc.</b></h5>
+
+          <div class=" card-body">
+
+
+
+
+            <form method="POST" (ngSubmit)="sendmesint()" [formGroup]="Message">
+              <div class="row">
+                <!--  -->
+                <div class="col-md-6">
+                  <input class="form-control " type="text" name="name" id="name" formControlName="name"
+                    placeholder="Votre Nom..." />
+                </div>
+                <div class="col-md-6">
+                  <input class="form-control" type="email" name="email" id="email" formControlName="email"
+                    placeholder="Votre E-mail..." />
+                </div>
+              </div>
+              <br>
+
+              <input class="form-control" name="objet" id="objet" placeholder="Objet..." formControlName="objet" /><br>
+              <textarea class="form-control" name="text" id="text" formControlName="text" placeholder="Votre message"
+                style="height:150px;"></textarea><br>
+
+              <p class="text-danger">{{ errorMessage }}</p>
+              <input type="submit" [disabled]="Message.invalid" class="btn btn-info pull-right" value="Envoyer"><br>
+            </form>
+          </div>
+
+
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

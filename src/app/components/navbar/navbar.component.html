@@ -1,0 +1,430 @@
+
+
+<nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-wrapper">
+         <!-- <a class="navbar-brand" href="#">{{getTitle()}}</a> -->
+        </div>
+        <button mat-raised-button class="navbar-toggler" type="button" (click)="sidebarToggle()">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+        </button>
+        
+        <!-------------------------------recherche------------------------------------------------------>
+        <div class=" collapse navbar-collapse justify-content-end" id="navigation">
+          
+            <form class="navbar-form">
+                <div class="input-group ">
+
+                       <form  >
+                  <input type="text" style="color:white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  (keydown)="search($event)" class="form-control" placeholder="Rechercher ..." >
+                  
+
+                  <ul id="search-result" class=" dropdown-menu dropdown-menu-right search-result ">
+                    <li *ngIf="recherchesevents?.length > 0 " class="dropdown-header" >
+                        <div class="top-text-heading"><b>Événement</b></div>
+                    </li>
+                    <li *ngFor="let recherchesevent of recherchesevents"  >
+                      <a  class="top-text-block "  (click)="showapp('evnettt')">
+                        <div class="top-text-heading">  
+                          <h4>{{recherchesevent?.Nom}}</h4>
+                          <h5>{{recherchesevent?.Discription}} </h5>
+                        </div>
+                      </a> 
+                    </li>
+                    <li *ngIf="rechercheformats?.length > 0 " class="dropdown-header" >
+                      <div class="top-text-heading"><b>Formations</b></div>
+                  </li>
+                    <li *ngFor="let rechercheformat of rechercheformats"  >
+                      <a  class="top-text-block "  (click)="showapp('formationn')">
+                        <div class="top-text-heading">  
+                          <h4>{{rechercheformat?.Libelle}}</h4>
+                          <h5>{{rechercheformat?.Description}} </h5>
+                        </div>
+                      </a> 
+                    </li>
+                    <li *ngIf="recherchescouurssslai1?.length > 0 || recherchescouurssslai2?.length > 0 || recherchescouurssslai3?.length > 0 
+                      || recherchescouurssslfi1?.length > 0 || recherchescouurssslfi2?.length > 0 || recherchescouurssslfi3?.length > 0 
+                      || recherchescouursssars1?.length > 0 || recherchescouursssars2?.length > 0 || recherchescouursssars3?.length > 0 
+                      || recherchescouursssMPTSD1?.length > 0 || recherchescouursssMPTSD2?.length > 0 || recherchescouursssMPTSD1?.length > 0 
+                      || recherchescouursssMPTSD2?.length > 0 
+
+                      " class="dropdown-header" >
+                      <div class="top-text-heading"><b>Cours</b></div>
+                  </li>
+                    <li *ngFor="let recherchescouur of recherchescouurssslai1"  >
+                      <a  class="top-text-block "  (click)="showapp('Cours')">
+                        <div class="top-text-heading">  
+                          <h4>{{recherchescouur?.Matiere}}</h4>
+                          <h5>{{recherchescouur?.Comment}} </h5>
+                          <h6 class="pull-right" >LAI1</h6>
+                        </div>
+                      </a> 
+                    </li>
+                    <li *ngFor="let recherchescouur of recherchescouurssslai2"  >
+                      <a  class="top-text-block "  (click)="showapp('Cours')">
+                        <div class="top-text-heading">  
+                          <h4>{{recherchescouur?.Matiere}}</h4>
+                          <h5>{{recherchescouur?.Comment}} </h5>
+                          <h6 class="pull-right">LAI2</h6>
+
+                        </div>
+                      </a> 
+                    </li>
+                    <li *ngFor="let recherchescouur of recherchescouurssslai3"  >
+                      <a  class="top-text-block "  (click)="showapp('Cours')">
+                        <div class="top-text-heading">  
+                          <h4>{{recherchescouur?.Matiere}}</h4>
+                          <h5>{{recherchescouur?.Comment}} </h5>
+                          <h6 class="pull-right" >LAI3</h6>
+                        </div>
+                      </a> 
+                    </li>
+
+
+                    <li *ngFor="let recherchescouur of recherchescouurssslfi1"  >
+                      <a  class="top-text-block "  (click)="showapp('Cours')">
+                        <div class="top-text-heading">  
+                          <h4>{{recherchescouur?.Matiere}}</h4>
+                          <h5>{{recherchescouur?.Comment}} </h5>
+                          <h6 class="pull-right">LFI1</h6>
+                        </div>
+                      </a> 
+                    </li>
+                    <li *ngFor="let recherchescouur of recherchescouurssslfi2"  >
+                      <a  class="top-text-block "  (click)="showapp('Cours')">
+                        <div class="top-text-heading">  
+                          <h4>{{recherchescouur?.Matiere}}</h4>
+                          <h5>{{recherchescouur?.Comment}} </h5>
+                          <h6 class="pull-right">LFI2</h6>
+                        </div>
+                      </a> 
+                    </li>
+                    <li *ngFor="let recherchescouur of recherchescouurssslfi3"  >
+                      <a  class="top-text-block "  (click)="showapp('Cours')">
+                        <div class="top-text-heading">  
+                          <h4>{{recherchescouur?.Matiere}}</h4>
+                          <h5>{{recherchescouur?.Comment}} </h5>
+                          <h6 class="pull-right">LFI3</h6>
+                        </div>
+                      </a> 
+                    </li>
+
+
+                    <li *ngFor="let recherchescouur of recherchescouursssars3"  >
+                        <a  class="top-text-block "  (click)="showapp('Cours')">
+                          <div class="top-text-heading">  
+                            <h4>{{recherchescouur?.Matiere}}</h4>
+                            <h5>{{recherchescouur?.Comment}} </h5>
+                            <h6 class="pull-right">ARS1</h6>
+                          </div>
+                        </a> 
+                      </li>
+                      <li *ngFor="let recherchescouur of recherchescouursssars2"  >
+                        <a  class="top-text-block "  (click)="showapp('Cours')">
+                          <div class="top-text-heading">  
+                            <h4>{{recherchescouur?.Matiere}}</h4>
+                            <h5>{{recherchescouur?.Comment}} </h5>
+                            <h6 class="pull-right">ARS2</h6>
+                          </div>
+                        </a> 
+                      </li>
+                      <li style="width: 100%" *ngFor="let recherchescouur of recherchescouursssars3"  >
+                        <a  class="top-text-block "  (click)="showapp('Cours')">
+                          <div class="top-text-heading">  
+                            <h4>{{recherchescouur?.Matiere}}</h4>
+                            <h5>{{recherchescouur?.Comment}} </h5>
+                            <h6 class="pull-right">ARS3</h6>
+                          </div>
+                        </a> 
+                      </li>
+
+                      <li style="width: 100%" *ngFor="let recherchescouur of recherchescouursssMPTSD1"  >
+                          <a  class="top-text-block "  (click)="showapp('Cours')">
+                            <div class="top-text-heading">  
+                              <h4>{{recherchescouur?.Matiere}}</h4>
+                              <h5>{{recherchescouur?.Comment}} </h5>
+                              <h6 class="pull-right">MPTSD1</h6>
+                            </div>
+                          </a> 
+                        </li>
+                        <li style="width: 100%" *ngFor="let recherchescouur of recherchescouursssMPTSD2"  >
+                            <a  class="top-text-block "  (click)="showapp('Cours')">
+                              <div class="top-text-heading">  
+                                <h4>{{recherchescouur?.Matiere}}</h4>
+                                <h5>{{recherchescouur?.Comment}} </h5>
+                                <h6 class="pull-right">MPTSD2</h6>
+                              </div>
+                            </a> 
+                          </li>
+
+                          <li style="width: 100%" *ngFor="let recherchescouur of recherchescouursssMPASSR1"  >
+                              <a  class="top-text-block "  (click)="showapp('Cours')">
+                                <div class="top-text-heading">  
+                                  <h4>{{recherchescouur?.Matiere}}</h4>
+                                  <h5>{{recherchescouur?.Comment}} </h5>
+                                  <h6 class="pull-right">MPASSR1</h6>
+                                </div>
+                              </a> 
+                            </li>
+                            <li style="width: 100%" *ngFor="let recherchescouur of recherchescouursssMPASSR2"  >
+                                <a  class="top-text-block "  (click)="showapp('Cours')">
+                                  <div class="top-text-heading">  
+                                    <h4>{{recherchescouur?.Matiere}}</h4>
+                                    <h5>{{recherchescouur?.Comment}} </h5>
+                                    <h6 class="pull-right">MPASSR2</h6>
+                                  </div>
+                                </a> 
+                              </li>
+
+                      <li class="dropdown-header" *ngIf="recherchesevents?.length <= 0 && rechercheformats?.length <= 0 && recherchescouursss?.length <=0 
+                      && recherchescouurssslai1?.length <= 0 && recherchescouurssslai2?.length <= 0 && recherchescouurssslai3?.length <= 0 &&
+                      recherchescouurssslfi1?.length <= 0 && recherchescouurssslfi2?.length <= 0 && recherchescouurssslfi3?.length <= 0 &&
+                      recherchescouursssars1?.length <= 0 && recherchescouursssars2?.length <= 0 && recherchescouursssars3?.length <= 0 
+                      &&recherchescouursssMPTSD2?.length <= 0 && recherchescouursssMPTSD1?.length <= 0 
+                      && recherchescouursssMPASSR1?.length <= 0 && recherchescouursssMPASSR2?.length <= 0
+
+                      ">
+                        
+                        <div class="top-text-heading"><h4 >No results found</h4></div>
+
+                      </li>
+                  </ul>
+
+
+
+                </form> 
+                    
+                    <button (click)="search($event)" mat-raised-button type="button" class="btn btn-white  btn-round btn-just-icon">
+                        <i class="material-icons">search</i>
+                        <div class="ripple-container"></div>
+                    </button>
+                    
+                </div>
+            </form>
+        </div> 
+        <!----------------------------------chat-------------------------------->
+<div hidden  id="allchat"  >
+  
+    <button    id="chatboxxxx" (click)="vue2($event)" class="btn  btn-info  btn-round btn-just-icon  ">
+      <i   class="fa fa-comments " aria-hidden="true"></i>
+    </button>
+    <mark   class="badgeee showbadggeee"><b>{{nbmesgcam}}</b></mark>
+  
+    <div id="chatbox">
+      <div id="friendslist"  >
+          <div id="friends"   >
+            <div id="etud" class="friend {{ enseignant.unred  }} " *ngFor="let enseignant of enseignants"  (click)="shomessage(enseignant)"   >
+                
+              <img   [src]="enseignant.photo || '' " />
+              
+              <p>
+
+                  <strong >{{enseignant.nom}} {{enseignant.prenom}} </strong>
+                  <span>{{enseignant.email}}</span>
+                  
+              </p>
+              <div *ngIf="enseignant.enligne " class="status available"></div>
+              <div *ngIf="!enseignant.enligne " class="status inactive"></div>
+            
+          </div>
+              <div    id="etud" class="friend {{ etudient.unred  }} " *ngFor="let etudient of etudients"  (click)="shomessage(etudient)"   >
+                
+                <img   [src]="etudient.photo || '' " />
+                
+                <p>
+  
+                    <strong >{{etudient.nom}} {{etudient.prenom}} </strong>
+                    <span>{{etudient.email}}</span>
+                  
+                </p>
+                <div *ngIf="etudient.enligne " class="status available"></div>
+                <div *ngIf="!etudient.enligne " class="status inactive"></div>
+
+            </div>
+            
+            
+              
+              
+              
+          </div>                
+          
+      </div>	
+      
+      <div id="chatview" (click)="vuechat()" class="p1">    	
+          <div id="profile">
+    
+              <div id="close">
+                  <div class="cy"></div>
+                  <div class="cx"></div>
+              </div>
+              
+              <p>yasmine</p>
+              <span>yasmine1@gmail.com</span>
+          </div>
+          <div id="chat-messages"   >
+              
+              <label></label>
+              <div   *ngFor="let messageshows of messageshow "  >
+              <div class="message"  *ngIf="messageshows.messageenv" >
+                  <img [src]="messageshows.photo || '' " />
+                  <div class="bubble">
+                      {{messageshows.messageenv}}
+                      <div class="corner"></div>
+                      <span></span>
+                  </div>
+              </div>
+    
+              <div class="message right" *ngIf="messageshows.messagerecu" >
+                  <img [src]="messageshows.photo || '' "  />
+                  <div class="bubble">
+                      {{messageshows.messagerecu}}
+                      <div class="corner"></div>
+                      <span></span>
+                  </div>
+              </div>
+            </div>
+            <div style="height:1px" aria-placeholder="bottom"></div>
+          </div>
+          
+          <div  id="sendmessage">
+              <form  class="form-inline  "  (ngSubmit)="sendmessage()" [formGroup]="Formchat" role="form">
+              <input  type="text" (click)="vuechat()"  class="form-control"  formControlName="textchat" placeholder="Send message..." />
+              <button id="send" [disabled]="Formchat.invalid " type="submit" ></button>
+              </form>
+          </div>
+      
+      </div>        
+    </div>	
+    </div>
+    
+        <!--------------------------------------notificaation------------------------------------------------->
+        <div *ngIf="isAuth"  class=" showwweing top-head-dropdown ">
+          <button (click)="vue()"  class="btn   btn-white  btn-group pull-right  btn-round btn-just-icon   "   id="notifications-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i id="notificationsIcon" class="fa fa-bell-o" aria-hidden="true"></i>
+            <!--<span class="badge" style="left: 20px; top: -10px">5</span>-->
+          </button>
+          <mark class="badge showbadgge">{{ nbnewnotif }}</mark>
+          <ul class="dropdown-menu   dropdown-menu-right">
+            <li class="showwweing dropdown-header" >
+             
+                <div class="top-text-heading"><b>Notifications: {{ nbnewnotif }} Nouvelle notifications</b></div>
+                
+               
+            </li>
+            <li (click)="vuenotif(notifn)" *ngFor="let notifn of notifnew " class=" unread notification-unread" >
+              <a  class="top-text-block "  (click)="showapp(notifn.gotto)">
+                <div class="top-text-heading">  
+                  <h4>{{ notifn.title  }}</h4>
+                  <h5>{{ notifn.body  }}</h5>
+                </div>
+              </a> 
+            </li>
+            <li style="background-color:rgb(255, 255, 255);"   *ngFor="let noti of notif" >
+                <a   class="top-text-block" (click)="showapp(noti.gotto)">
+                  <div  class="top-text-heading">  
+                      {{ noti.title  }}
+                      {{ noti.body  }}
+                  </div>
+                </a> 
+              </li>
+           <li>
+            <div *ngIf="notifn" class="loader-topbar"></div>
+           </li>
+          </ul>
+        </div>
+
+       
+        <!--------------------------------------------deux bouton login et lougout---------------------------------------------->
+        <div class="text-center"   >
+          <button class="btn  btn-info  btn-round btn-just-icon "  data-target="#elegantModalForm" *ngIf="!isAuth" data-toggle="modal">
+            <i class="material-icons">person</i>
+            <div class="ripple-container"></div>
+          </button>
+          <button class="btn  btn-info  btn-round btn-just-icon "  (click)="onSignOut()"  *ngIf="isAuth" data-toggle="modal">
+            <i class="material-icons">input</i>
+            <div class="ripple-container"></div>
+          </button>
+        </div>
+        
+        
+
+        
+
+      
+
+
+
+
+
+    </div>      
+
+
+
+
+
+
+
+
+
+
+
+            
+        
+    
+</nav>
+<!------------------------------------------------maile et mot de passe--------------------------------------------------------->
+<div class="modal fade" id="elegantModalForm" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <!--Content-->
+    <div class="modal-content form-elegant">
+      <!--Header-->
+      <div class="modal-header text-center">
+        <h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="myModalLabel"><strong>Connecter pour votre profil</strong></h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    
+      
+      <div class="modal-body mx-4">
+        <form [formGroup]="signInForm" (ngSubmit)="onSubmit()" >
+        <div class="md-form mb-5">
+          <input type="text" id="email" placeholder="Adresse mail" class="form-control " formControlName="email">
+        </div>
+        
+
+        <div class="md-form pb-3">
+          <input type="password" id="password" placeholder="Mot de passe" class="form-control " formControlName="password">
+          <p class="font-small blue-text d-flex justify-content-end">Pour obtenir à l'aide <a href="http://www.isima.rnu.tn" class="blue-text ml-1">
+            www.isima.rnu.tn</a></p>
+        </div>
+
+        <div class="text-center mb-3">
+          <button type="submit" [disabled]="signInForm.invalid"   class="  btn btn-info blue-gradient btn-block btn-rounded z-depth-1a"> Se connecter</button>
+          
+        </div>
+      </form>
+      <p class="text-danger">{{ errorMessage }}</p>
+        <p class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> Suivez l'actualité 
+         avec:</p>
+
+        <div class="row my-3 d-flex justify-content-center">
+          
+          <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a"><img src="/assets/img/fb-icon.png"></button>
+          
+          <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a"><img src="/assets/img/gmail.png"></button>
+          
+          <button type="button" class="btn btn-white btn-rounded z-depth-1a"><img src="/assets/img/linked in.png"></button>
+        </div>
+      </div>
+      <div class="modal-footer mx-5 pt-3 mb-1">
+        <p class="font-small grey-text d-flex justify-content-end">Si vous n'êtes pas inscrit <a href="/Inscription" class="blue-text ml-1">
+          S'inscrire  </a></p>
+      </div>
+    </div>
+  </div>
+</div>
+

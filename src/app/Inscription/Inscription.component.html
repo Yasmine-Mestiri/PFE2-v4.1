@@ -1,0 +1,83 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8 " style="left: 15%; bottom: -50px">
+        <div class="card">
+          <div class="card-header card-header-info">
+            <h4 class="card-title">Créer un compte </h4>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="container">
+
+                  <div class="preview img-wrapper"></div>
+
+                  <div class="file-upload-wrapper">
+                    <input type="file" name="file" (change)="detectFiles($event)" class="file-upload-native"
+                      value="no-file" formControlName="photo" accept="image/*" />
+                    <input type="text" disabled placeholder="Parcourir l'image" class="file-upload-text" />
+                  </div>
+                  
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <input id="prénom" placeholder="prénom" name="prénom" formControlName="prenom" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                  <input id="Nom" placeholder="Nom" name="Nom" class="form-control" formControlName="Nom" />
+                </div>
+              </div>
+              <br>
+              
+
+
+
+
+              <div class="row">
+                <div class="col-md-6">
+                  <input id="numer_d'inscrit" name="numer_d'inscrit" maxlength="7" minlength="7"
+                    formControlName="password" placeholder="Numéro d'inscrit" type="text" class="form-control">
+                </div>
+                <div class="col-md-6">
+                  <input name="email" class="form-control" placeholder="email" formControlName="email" />
+                </div>
+
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-6">
+                  <input id="Adresse" placeholder="Adresse" name="Adresse" class="form-control"
+                    formControlName="Adresse" />
+                </div>
+                <div class="col-md-6">
+                  <input id="Numero" placeholder="Numéro de téléphone" name="Numero" maxlength="8" minlength="8"
+                    formControlName="Numero" class="form-control" />
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-6">
+                  <select class="custom-select" formControlName="Localisation">
+                    <option value="" disabled selected>Localisation</option>
+                    <option value="Tunis">Tunis</option>
+                    <option value="Mahdia">Mahdia</option>
+                    <option value="Ben arous">Ben arous</option>
+                    <option value="kebili">kebili</option>
+                    <option value="Sfax">Sfax</option>
+                    <option value="Sousse">Sousse</option>
+                  </select>
+                </div>
+              </div>
+
+              <p class="text-danger">{{ errorMessage }}</p>
+              <button type="submit" class="btn btn-info pull-right"
+                [disabled]="signupForm.invalid || fileIsUploading">Créer Votre profil
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

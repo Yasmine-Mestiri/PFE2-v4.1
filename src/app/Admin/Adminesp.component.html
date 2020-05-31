@@ -1,0 +1,1188 @@
+
+<div class="main-content">
+        <div class="container-fluid">
+            <div class="card card-plain">
+                    <div class="card-header-info ">
+                            <div  class="nav" data-toggle="buttons-radio" >
+                                    <button type="button" data-toggle="tab" href="#Sondage" role="tab" class="btn    btn-circle " title="Sondage"><i class="fa fa-tasks" ></i>
+                                    </button>
+                                    <button id="evenement" type="button" data-toggle="tab" href="#Calendrier" role="tab" class="btn    btn-circle" title="Calendrier et événements"><i class="fa fa-calendar" ></i>
+                                    </button>
+                                    <button id="messaaggee" type="button" data-toggle="tab" href="#Messagerie" role="tab" class="btn    btn-circle" title="Messagerie"><i class="fa fa-comments" ></i>
+                                    </button>
+                                    <button type="button" data-toggle="tab" href="#Cours" role="tab" class="btn   btn-circle" title="Cours"><i class="fa fa-book"></i>
+                                    </button>
+                                    <button type="button" data-toggle="tab" href="#Planetude" role="tab" class="btn   btn-circle" title="Plan d'études"><i class="fa fa-clipboard"></i>
+                                    </button>
+                                    <button id="inscription" type="button" data-toggle="tab" href="#Modifierprofils" role="tab" class="btn  btn-circle" title="Validation des inscriptions"><i class="fa fa-cog" ></i>
+                                    </button>
+                                    <!------------------------------------------------------------------------------------------------------>
+                                    
+
+                                      
+                                
+                                   
+
+                                    <!----------------------------------------------------------------------------------------------------------->
+                            </div>
+
+                    </div>
+
+                    <!----------------------------------Messagerie---------------------------------------->
+
+                    <div class="row">
+                            <div class="tab-content col-md-12">
+                                <div id="Messagerie" class="tab-pane" >
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                       
+                                        <div class="container">
+                                                
+                                                <div class="d-flex justify-content-center ">
+                                                        <div class="col-md-12 ">
+                                                          <h3>{{ (message | async)?.notification.title  }}</h3>
+                                                          <h4>{{ (message | async)?.notification.body  }}</h4>
+                                                          
+                                                            <nav class="nav nav-tabs justify-content-center">
+                                                                <div class="nav  nav-tabs nav-fill"  id="nav-tab" role="tablist">
+                                                                  <a class="nav-item nav-link  active"  style="width: 397px"  id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><b>Messages Reçus</b></a>
+                                                                  <a class="nav-item nav-link" style="width: 397px" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"><b>Messages Envoyés</b></a>
+                                                                </div>
+                                                              </nav>
+                                                              <div class="tab-content"   id="nav-tabContent">
+                                                                <div class="tab-pane fade show active "   id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                                                    <table class="table table-striped">
+                                                                        <tr>
+                                                                          <th></th>
+                                                                          <th>Source</th>
+                                                                          <th>Sujet</th>
+                                                                          <th>Message</th>
+                                                                          <th>Date</th>
+                                                                          <th>Répondre</th>
+                                                                          <th>Supprimer</th>
+                                                                        </tr>
+                                                                        <tr *ngFor="let msg of msgs">
+                                                                          <td class="inbox-small-cells" style="word-break:break-all; width: 1% "><i class="fa fa-star"></i></td>
+                                                                          <td style="word-break:break-all; width: 10% ">{{ msg.Source }}</td>
+                                                                          <td style="word-break:break-all; width: 10%  ">{{ msg.Objet }}</td>
+                                                                          <td style="word-break:break-all; " >{{ msg.Message }}</td>
+                                                                          <td style="word-break:break-all; width: 20% " >{{ msg.Date }}</td>
+                                                                          <td style="word-break:break-all; width: 10% " >
+                                                                            <button class="btn btn-info btn-sm" (click)="repondremesage(msg)" data-toggle="modal" data-target="#repondremessage"  >
+                                                                              <i class="fa fa-envelope" style="color:white;"></i>
+                                                                            </button>
+                                                                          </td>
+                                                                          <td style="word-break:break-all; width: 10% "   >
+                                                                              <button class="btn btn-info btn-sm" (click)="supprimermessageres(msg)">
+                                                                                <i class="fa fa-trash" style="color:white;"></i>
+                                                                              </button>
+                                                                            </td>
+                                                                        </tr>
+                                                                      </table>
+                                                                </div>
+                                                                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                                                    <table class="table table-striped">
+                                                                        <tr>
+                                                                          <th></th>
+                                                                          <th>Source</th>
+                                                                          <th>Sujet</th>
+                                                                          <th>Message</th>
+                                                                          <th>Date</th>
+                                                                          <th>Supprimer</th>
+                                                                        </tr>
+                                                                        <tr *ngFor="let msge of msgse">
+                                                                          <td class="inbox-small-cells" style="word-break:break-all; width: 1% "><i class="fa fa-star"></i></td>
+                                                                          <td style="word-break:break-all; width: 10% ">{{ msge.Source }}</td>
+                                                                          <td style="word-break:break-all; width: 10%  ">{{ msge.Objet }}</td>
+                                                                          <td style="word-break:break-all; " >{{ msge.Message }}</td>
+                                                                          <td style="word-break:break-all; width: 20% " >{{ msge.Date }}</td>
+                                                                          <td style="word-break:break-all; width: 10% "   >
+                                                                              <button class="btn btn-info btn-sm" (click)="supprimermessageenv(msge)">
+                                                                                <i class="fa fa-trash" style="color:white;"></i>
+                                                                              </button>
+                                                                            </td>
+                                                                        </tr>
+                                                                      </table>
+                                                                </div>
+                                                              </div>
+                                                            
+                                                                
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                </div>
+                                                        </div>
+                                                      
+                                            </div>
+                                </div>
+                                
+
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--------------------------------------------------Gerer inscription---------------------------------------------------->
+                                <div  id="Modifierprofils" class="tab-pane">
+                                  <div class="card">
+                                      <div class="card-body">
+                                              <div class="row">
+                                                    <div class="container" >
+                                                              
+                                                      <div class="d-flex justify-content-center ">
+                                                        <div class="col-md-7 ">
+                                                      
+                                                            <nav class="nav nav-tabs justify-content-center">
+                                                                <div class="nav  nav-tabs nav-fill"  id="nav-tab" role="tablist">
+                                                                  <a class="nav-item nav-link  active"  style="width: 212px" (click)="onclick()" id="nav-home-tab" data-toggle="tab" href="#nav-etud" role="tab" aria-controls="nav-home" aria-selected="true"><b>Valider les inscriptions des étudiants</b></a>
+                                                                  <a class="nav-item nav-link" style="width: 212px" id="nav-profile-tab" (click)="onclicks()" data-toggle="tab" href="#nav-ensei" role="tab" aria-controls="nav-profile" aria-selected="false"><b>Valider les inscriptions des enseignants</b></a>
+                                                                </div>
+                                                              </nav>
+                                                              <div class="tab-content"   id="nav-tabContent">
+                                                                <div class="tab-pane fade show active "   id="nav-etud" role="tabpanel" aria-labelledby="nav-home-tab">
+                                                                    <table class="table table-striped">
+                                                                      
+                                                                        <tr>
+                                                                          <th></th>
+                                                                          <th>Étudiant</th> 
+                                                                          <th>Accepter</th>
+                                                                          <th>Supprimer</th>
+                                                                        </tr>
+                                                                        <tr *ngFor="let coo of coords">
+                                                                          <td class="inbox-small-cells" style="word-break:break-all; width: 1% "><i *ngIf="!coo.valideinscri" class="fa fa-star"></i></td>
+                                                                          <td style="word-break:break-all;">{{ coo.nom }} {{ coo.prenom }}</td>
+                                                                          <td style="word-break:break-all; width: 10% ">
+                                                                            <button class="btn btn-info btn-sm"  *ngIf="!coo.valideinscri" (click)="acceptinvit(coo)" >
+                                                                              <i class="fa fa-user-plus" style="color:white;"></i>
+                                                                            </button>
+                                                                            <div *ngIf="coo.valideinscri"> <b >Accepté</b></div>
+                                                                          </td>
+                                                                          
+                                                                          <td style="word-break:break-all; width: 10% " (click)="supprimerinscri(coo)"  >
+                                                                            <button class="btn btn-info btn-sm" *ngIf="!coo.valideinscri">
+                                                                              <i class="fa fa-trash" style="color:white;" ></i>
+                                                                            </button>
+                                                                          </td>
+                                                                        </tr>
+                                                                      </table>
+                                                                </div>
+                                                                <div class="tab-pane fade" id="nav-ensei" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                                                    <table class="table table-striped">
+                                                                       
+                                                                        <tr>
+                                                                          <th></th>
+                                                                          <th>Enseignant</th>
+                                                                          <th>Accepter</th>
+                                                                          <th>Supprimer</th>
+                                                                        </tr>
+                                                                        <tr *ngFor="let cooo of coordss">
+                                                                          <td class="inbox-small-cells" style="word-break:break-all; width: 1% "><i *ngIf="!cooo.valideinscri" class="fa fa-star"></i></td>
+                                                                          <td style="word-break:break-all;">{{ cooo.nom}}{{cooo.prenom }}</td>
+                                                                          <td style="word-break:break-all; width: 10% ">
+                                                                            <button class="btn btn-info btn-sm"  *ngIf="!cooo.valideinscri" (click)="acceptinvit(cooo)" >
+                                                                              <i class="fa fa-user-plus" style="color:white;"></i>
+                                                                            </button>
+                                                                            <div *ngIf="cooo.valideinscri"> <b >Accepté</b></div>
+                                                                          </td>
+                                                                          
+                                                                          <td style="word-break:break-all; width: 10% " >
+                                                                            <button class="btn btn-info btn-sm" *ngIf="!cooo.valideinscri">
+                                                                              <i class="fa fa-trash" style="color:white;" ></i>
+                                                                            </button>
+                                                                          </td>
+                                                                        </tr>
+                                                                      </table>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                        </div>
+      
+                                                        
+      
+      
+                                                    </div>
+                                              </div>
+                                      </div>
+                                  </div>
+                                </div>
+                                <!------------------------------------------------sondage------------------------------------------------>
+                                <div  id="Sondage" class="tab-pane">
+                                  <div class="card">
+                                      <div class="card-body">
+                                              <div class="row">
+                                                    <div class="container">
+      
+                                                        <table class="table table-striped">
+                                                            <tr>
+                                                              <th>Titre événement</th>
+                                                                <th >Date</th>
+                                                                <th >Nombre de Votes</th>
+                                                                <th >Modifier</th>
+                                                                <th >Supprimer</th>
+                                                            </tr>
+                                                            <tr *ngFor="let sondformation of sondformations">
+                                                                <td style="word-break:break-all; width: 10% " >
+                                                                  <div *ngIf="sondformation.forme1">{{ sondformation.forme1 }},</div>
+                                                                  <div *ngIf="sondformation.forme2">{{ sondformation.forme2 }},</div>   
+                                                                  <div *ngIf="sondformation.forme3">{{ sondformation.forme3 }},</div>
+                                                                  <div *ngIf="sondformation.forme4">{{ sondformation.forme4 }},</div> 
+                                                                  <div *ngIf="sondformation.forme5">{{ sondformation.forme5 }}</div>
+                                                                </td>
+                                                                <td style="word-break:break-all; width: 10% " >{{ sondformation.Date }}</td>
+                                                                <td style="word-break:break-all; width: 10% "  >
+                                                                  <div *ngIf="sondformation.forme1" (click)="showform1(sondformation)" data-toggle="modal" data-target="#myModalsondage">{{ sondformation.forme1 }} / {{ sondformation.forme1nb }} ({{sondformation.forme1nbpers}}%)       </div>
+                                                                  <div *ngIf="sondformation.forme2" (click)="showform2(sondformation)" data-toggle="modal" data-target="#myModalsondage">{{ sondformation.forme2 }} / {{ sondformation.forme2nb }} ({{sondformation.forme2nbpers}}%)</div>   
+                                                                  <div *ngIf="sondformation.forme3" (click)="showform3(sondformation)"data-toggle="modal" data-target="#myModalsondage">{{ sondformation.forme3 }} / {{ sondformation.forme3nb }} ({{sondformation.forme3nbpers}}%)</div>
+                                                                  <div *ngIf="sondformation.forme4" (click)="showform4(sondformation)"data-toggle="modal" data-target="#myModalsondage">{{ sondformation.forme4 }} / {{ sondformation.forme4nb }} ({{sondformation.forme4nbpers}}%)</div> 
+                                                                  <div *ngIf="sondformation.forme5" (click)="showform5(sondformation)"data-toggle="modal" data-target="#myModalsondage">{{ sondformation.forme5 }} / {{ sondformation.forme5nb }} ({{sondformation.forme5nbpers}}%)</div>
+                                                                </td>
+                                                                <td style="word-break:break-all; width: 10% " >
+                                                                    <button class="btn btn-info btn-sm" (click)="detecctttcodesondform(sondformation)" data-toggle="modal" data-target="#MOdifsondage"  >
+                                                                    <i class="fa fa-pencil-square" style="color:white;" ></i>
+                                                                  </button>
+                                                                </td>
+                                                                
+                                                              <td style="word-break:break-all; width: 10% " >
+                                                                <button class="btn btn-info btn-sm" (click)="removesondage(sondformation)">
+                                                                <i class="fa fa-trash" style="color:white;" ></i>
+                                                              </button>
+                                                            </td>
+                                                            </tr>
+                                                           
+                                                          </table>
+      
+                                                            <div class="container ">
+                                                                <div class="row it">
+                                                                <div class="col-sm-offset-1 col-sm-10" id="one">
+                                                                <div class="row">
+                                                                  <div class="col-sm-offset-4 col-sm-4 form-group">
+                                                                    <h3 class="text-center"><b>Créer un Sondage</b></h3>
+                                                                  </div><!--form-group-->
+                                                                </div><!--row-->
+                                                                <div id="uploader">
+                                                                <div class="row uploadDoc ">
+                                                                    <div class="col-sm-12">
+                                                                        <form [formGroup]="sondageform">
+                                                                            <input type="text" placeholder="Titre événement" class="form-control " formControlName="form1">
+                                                                            <input type="text" placeholder="Titre événement" class="form-control " formControlName="form2">
+                                                                            <input type="text" placeholder="Titre événement" class="form-control " formControlName="form3">
+                                                                            <input type="text" placeholder="Titre événement" class="form-control " formControlName="form4">
+                                                                            <input type="text" placeholder="Titre événement" class="form-control " formControlName="form5">
+                                                                        </form>
+                                                                    </div><!--col-8-->
+                                                                </div><!--row-->
+                                                                </div><!--uploader-->
+                                                                <div class="text-center">
+                                                                <button (click)="sendsondage()" [disabled]="sondageform.invalid" style="color:white" class="btn btn-info"><i style="color:white"  class="fa fa-paper-plane"></i> Confirmer</button>
+                                                                </div>
+                                                                </div><!--one-->
+                                                                </div><!-- row -->
+                                                                </div><!-- container -->
+      
+      
+                                                    </div>
+                                              </div>
+                                      </div>
+                                  </div>
+                                </div>
+                                <!--------------------------------------------Plan d'étude------------------------------------->
+                                <div  id="Planetude" class="tab-pane">
+                                    <div class="card">
+                                        <div class="card-body">
+                                                <div class="row">
+                                                      <div class="container" >
+                                                        
+                                                        <table class="table table-striped">
+                                                          <tr>
+                                                            <th>Enseignant</th>
+                                                              
+                                                              <th>Plan d'Étude</th>
+                                                          </tr>
+                                                          <tr *ngFor="let esegnient of esegnients">
+                                                            <td>{{esegnient.nom}} {{esegnient.prenom}}</td>
+                                                            <td>
+                                                              <button class="btn btn-info btn-sm" (click)="detectnuminssss(esegnient)" data-toggle="modal" data-target="#myModaladdplanetud"  >
+                                                                Ajouter
+                                                              </button>
+                                                            </td>
+                                                          </tr>
+                                                         
+                                                        </table>
+        
+                                                          
+        
+        
+                                                      </div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                  </div>
+                                <!-------------------------------------------Matiere-------------------------------------------->
+                                <div  id="Cours" class="tab-pane">
+                                  <div class="card">
+                                      <div class="card-body">
+                                              <div class="row">
+                                                    <div class="container" >
+                                                      
+                                                      <table class="table table-striped">
+                                                        <tr>
+                                                          <th>Les enseignants</th>
+                                                            
+                                                            <th>Ajouter Les Matières</th>
+                                                        </tr>
+                                                        <tr *ngFor="let esegnient of esegnients">
+                                                          <td>{{esegnient.nom}} {{esegnient.prenom}}</td>
+                                                          <td>
+                                                            <button class="btn btn-info btn-sm" (click)="detectnumins(esegnient)" data-toggle="modal" data-target="#myModaladdmatier"  >
+                                                              Ajouter
+                                                            </button>
+                                                          </td>
+                                                        </tr>
+                                                       
+                                                      </table>
+      
+                                                        
+      
+      
+                                                    </div>
+                                              </div>
+                                      </div>
+                                  </div>
+                                </div>
+                               
+                                  
+                                <!------------------------------------------evenement--------------------------------------------->
+                                <div id="Calendrier" class="tab-pane" >
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="row">
+                                           
+                                            <div class="container">
+                                                    
+                                                    <div class="d-flex justify-content-center ">
+                                                            <div >
+                                                          
+                                                                
+                                                                <form [formGroup]="ajoutevent" (ngSubmit)="onSubmit()">
+                                                                <table style="width: 1150px;" class="table table-striped">
+                                                                    <tr>
+                                                                        <th >Photo</th>
+                                                                        <th >Événement</th>
+                                                                        <th >Description</th>
+                                                                        <th>Nombre des Participants</th>
+                                                                        <th  >Date</th>
+                                                                        <th  >Lieu</th>
+                                                                        <th  >Nombre limtes des places</th>
+                                                                        <th  >Inscription</th>
+                                                                        <th  >Modifier</th>
+                                                                        <th >Supprimer</th>
+                                                                    </tr>
+                                                                    <tr *ngFor="let event of events">
+                                                                        <td style="word-break:break-all; "> <img class="image-upload-wrapper"  [src]="event.photo || ''" style="width:100px;height:100px;"> </td>
+                                                                      <td style="word-break:break-all; width: 10% " >{{ event.Nom }}</td>
+                                                                      <td style="word-break:break-all; ">{{ event.Discription }}</td>
+                                                                      <td style="word-break:break-all; width: 5%"     >
+                                                                        <button type="button" class="btn btn-info btn-sm" *ngIf="event.nuberPartcipent" (click)="showParcipent(event)" data-toggle="modal" data-target="#myModalParticipants" >
+                                                                          {{ event.nuberPartcipent }}
+                                                                        </button>
+                                                                      </td>
+                                                                      <td style="word-break:break-all;  " >{{ event.Temps }}</td>
+                                                                      <td style="word-break:break-all; width: 5%  " >{{ event.Lieu }}</td>
+                                                                      <td style="word-break:break-all;" >{{ event.nbplace }}</td>
+                                                                      <td style="word-break:break-all;"  >{{ event.inscriouiounon }}</td>
+                                                                      <td style="word-break:break-all; width: 5% " >
+                                                                        <button type="button" class="btn btn-info btn-sm" (click)="detectevent(event)"  data-toggle="modal" data-target="#Modifevent">
+                                                                        <i class="fa fa-edit" style="color:white;" ></i>
+                                                                      </button>
+                                                                    </td>
+                                                                      <td style="word-break:break-all; width: 5% " >
+                                                                        <button type="button" class="btn btn-info btn-sm" (click)="removeBook(event)">
+                                                                        <i class="fa fa-trash" style="color:white;" ></i>
+                                                                      </button>
+                                                                    </td>
+                                                                    </tr>
+                                                                   
+                                                                    <tr> 
+                                                                            <td>
+                                                                                <div id="file" class="previewev img-wrapper form-control"></div>
+                                                                                <div class="file-upload-wrapper-event form-control">
+                                                                                    <input type="file" name="file" (change)="detectFiles($event)" class="file-upload-native-event" value="no-file" formControlName="photo"  accept="image/*" />
+                                                                                    <input id="file" type="text" disabled placeholder="Parcourir l'image" class="file-upload-text-event"  />
+                                                                                </div>
+                                                                            </td>
+                                                                            <td  ><input type="text" class="form-control" formControlName="Nom" name="Nom" placeholder="Nom" id="Nom"></td>
+                                                                            <td   ><textarea name="Discription" class="form-control" formControlName="Discription" id="Discription" style="width: 100%;" placeholder="Description"></textarea></td>
+                                                                            <td ></td>
+                                                                            <td  ><input class="form-control" formControlName="datetime" id="dateInput" type="datetime-local"></td>
+                                                                            <td  ><input type="text" class="form-control" formControlName="Lieu" name="Lieuxx" placeholder="Lieu" id="Lieuxx"></td>
+                                                                            <td  ><input type="number" *ngIf="showwnbpalce" class="form-control" formControlName="nbplace" name="nbplace" placeholder="nombre de place" id="nbplace"></td>
+                                                                            <td  ><input type="checkbox" (click)="shownbplace()" name="inscriuon"  formControlName="inscriuon"></td>
+
+                                                                            <td ></td>
+                                                                            <td ></td>
+
+                                                                    </tr>
+                                                                  </table>
+
+                                                                  <button type="submit" class="btn btn-info pull-right" [disabled]="ajoutevent.invalid ">Confirmer</button>
+                                                                </form>
+ 
+                                                                    
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                    </div>
+                                                            </div>
+                                                          
+                                                </div>
+                                    </div>
+                                    
+    
+    
+    
+    
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                    </div>
+            </div>
+        </div>
+</div>
+
+<!------------------------------------------------------------------------------------------>
+<div class="modal fade" id="myModalcomment" role="dialog">
+        <div class="modal-dialog modal-lg">
+        
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <table class="table table-striped">
+                <tr>
+                  <th>Date</th>
+                    <th >Commentaires</th>
+                    
+                    <th >Supprimer</th>
+                </tr>
+    
+                <tr *ngFor="let comm of commenters">
+                  
+                    <td style="word-break:break-all; width: 19% " >{{ comm.datecoment }}</td>
+                    <td style="word-break:break-all;" >{{ comm.Commenter }}</td>
+                    
+                  <td style="word-break:break-all; width: 10% ">
+                    <button class="btn btn-info pull-right btn-sm" (click)="removecomment(comm)">
+                      <i class="fa fa-trash" style="color:white;" ></i>
+                    </button> 
+                  </td>
+                </tr>
+              </table>
+              <form class="form-inline  " (ngSubmit)="commentercour()" [formGroup]="FormComment" role="form">
+                  <input class="form-control col-sm-10" formControlName="textComment"   type="text" placeholder="Votre commentaire" />
+                  <button  type="submit"  [disabled]="FormComment.invalid " class="btn btn-info">Ajouter</button>
+              </form>
+            </div>
+            
+          </div>
+          
+        </div>
+      </div>
+
+
+
+
+      <div class="modal fade" id="Modifevent" role="dialog">
+        <div class="modal-dialog modal-lg">
+        
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+             
+
+
+
+              <form [formGroup]="editevent" >
+                <table class="table table-striped">
+                    <tr>
+                        <th >Photo</th>
+                        <th >Titre</th>
+                        <th >Description</th>
+                        <th>Nombre des Participants</th>
+                        <th  >Date</th>
+                        
+                    </tr>
+                  <tr>
+                     <td >
+                       
+                        <div id="file"  class="previewev img-wrapper form-control"></div>
+                        <div class="file-upload-wrapper-event form-control">
+                            <input type="file" name="file" (change)="detectFiles($event)" class="file-upload-native-event" value="no-file" formControlName="photo"  accept="image/*" />
+                            <input id="file" type="text" disabled placeholder="Parcourir l'image" class="file-upload-text-event"  />
+                        </div>
+                            </td>
+                            <td><input type="text" class="form-control" formControlName="Nom" name="Nom" placeholder="Nom" id="Nom"></td>
+                            <td><textarea name="Discription" class="form-control"  formControlName="Discription" id="Discription" style="width: 100%;" placeholder="Discription"></textarea></td>
+                            <td ></td>
+                            <td  ><input class="form-control"  formControlName="datetime" id="dateInput" type="datetime-local"></td>
+                    </tr>
+                  </table>
+
+                  <button type="submit" data-dismiss="modal"  (click)="onEdit()" class="btn btn-info pull-right" >Confirmer</button>
+                </form>
+
+
+
+
+            </div>
+            
+          </div>
+          
+        </div>
+      </div>
+
+
+      <div class="modal fade" id="myModalcommentform" role="dialog">
+        <div class="modal-dialog modal-lg">
+        
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <table class="table table-striped">
+                <tr>
+                  <th>Date</th>
+                    <th >Commentaire</th>
+                    
+                    <th >Supprimer</th>
+                </tr>
+    
+                <tr *ngFor="let comm of commenters">
+                  
+                    <td style="word-break:break-all; width: 19% " >{{ comm.datecoment }}</td>
+                    <td style="word-break:break-all;" >{{ comm.Commenter }}</td>
+                    
+                  <td style="word-break:break-all; width: 10% ">
+                    <button class="btn btn-info pull-right btn-sm" (click)="removecommentform(comm)">
+                      <i class="fa fa-trash" style="color:white;" ></i>
+                    </button> 
+                  </td>
+                </tr>
+              </table>
+              <form class="form-inline  " (ngSubmit)="commenterform()" [formGroup]="FormComment" role="form">
+                  <input class="form-control col-sm-10" formControlName="textComment"   type="text" placeholder="Votre commentaire" />
+                  <button  type="submit"  [disabled]="FormComment.invalid " class="btn btn-info">Ajouter</button>
+              </form>
+            </div>
+            
+          </div>
+          
+        </div>
+      </div>
+
+      <div class="modal fade" id="myModaljaime" role="dialog">
+          <div class="modal-dialog modal-lg">
+          
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <table class="table table-striped">
+                  <tr>
+                    
+                      <th >Nom</th>
+                      
+                      <th >prénom</th>
+                  </tr>
+      
+                  <tr *ngFor="let jaims of jaimes">
+                    
+                      <td style="word-break:break-all; width: 19% " >{{ jaims.name }}</td>
+                      <td style="word-break:break-all;" >{{ jaims.prenom }}</td>
+                      
+                    
+                  </tr>
+                  
+                </table>
+              </div>
+              
+            </div>
+            
+          </div>
+        </div>
+
+
+
+
+
+        <div class="modal fade" id="myModalParticipants" role="dialog">
+            <div class="modal-dialog modal-lg">
+            
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div  class="modal-body">
+                    <button type="button" class="btn btn-info pull-right btn-sm" (click)="print()">
+                        <i class="fa fa-print" style="color:white;" ></i>
+                      </button> 
+                      
+
+                      <div id="print-section">
+                  <table  class="table table-striped">
+                      <thead>
+                      <th colspan="2"  style="text-align:center">Liste Des Participants</th>
+                    </thead>
+                    <tr>
+                        <td ><b>Nom</b></td>
+                        <td><b>prénom</b></td>
+                    </tr>
+        
+                    <tr  *ngFor="let jaims of jaimes">
+                      
+                        <td style="word-break:break-all; width: 19% " > {{ jaims.name }} </td>
+                        <td  style="word-break:break-all; width: 19% " > {{ jaims.prenom }} </td>
+                        
+                      
+                    </tr>
+                    
+                  </table>
+                </div>
+                </div>
+                
+              </div>
+              
+            </div>
+          </div>
+          <div class="modal fade" id="MOdifsondage" role="dialog">
+              <div class="modal-dialog modal-lg">
+              
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    
+
+                      <div class="col-sm-12">
+                          <form [formGroup]="sondageformmodif">
+                              <input type="text" placeholder="Nom de l'événement" class="form-control " formControlName="form1">
+                              <input type="text" placeholder="Nom de l'événement" class="form-control " formControlName="form2">
+                              <input type="text" placeholder="Nom de l'événement" class="form-control " formControlName="form3">
+                              <input type="text" placeholder="Nom de l'événement" class="form-control " formControlName="form4">
+                              <input type="text" placeholder="Nom de l'événement" class="form-control " formControlName="form5">
+                          </form>
+                      </div><!--col-8-->
+
+
+                      <div class="text-center">
+                          <button data-dismiss="modal" (click)="modifsondage()" [disabled]="sondageformmodif.invalid" style="color:white" class="btn btn-info"><i style="color:white"  class="fa fa-paper-plane"></i> Confirmer</button>
+                          </div>
+
+                  </div>
+                  
+                </div>
+                
+              </div>
+            </div>
+            <div class="modal fade" id="repondremessage" role="dialog">
+              <div class="modal-dialog modal-lg">
+              
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    <form  method="POST"(ngSubmit)="sendmesintrep()"  [formGroup]="Messagerep">
+                     
+                  
+                      <input class="form-control" name="objet" id="objet" placeholder="Objet..." formControlName="objet" /><br>
+                      <textarea class="form-control" name="text" id="text" formControlName="text" placeholder="Votre message" style="height:150px;"></textarea><br>
+                      
+                      <p class="text-danger">{{ errorMessage }}</p>
+                      <input type="submit" [disabled]="Messagerep.invalid"  class="btn btn-info pull-right" value="Envoyer"  ><br>
+                    </form>
+                  </div>
+                  
+                </div>
+                
+              </div>
+            </div>
+          <div class="modal fade" id="myModalsondage" role="dialog">
+              <div class="modal-dialog modal-lg">
+              
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    <table class="table table-striped">
+                      <tr>
+                        
+                          <th >Nom</th>
+                          
+                          <th >prénom</th>
+                      </tr>
+          
+                      <tr *ngFor="let lesetud of lesetuds">
+                        
+                          <td style="word-break:break-all; width: 19% " >{{ lesetud.nom }}</td>
+                          <td style="word-break:break-all;" >{{ lesetud.prenom }}</td>
+                          
+                        
+                      </tr>
+                      
+                    </table>
+                  </div>
+                  
+                </div>
+                
+              </div>
+            </div>
+            <div class="modal fade" id="myModaladdmatier" role="dialog">
+              <div class="modal-dialog modal-lg">
+              
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                      <form [formGroup]="matierform">
+                    <table class="table table-striped">
+                      <tr>
+                        
+                          <th >Matière1</th>
+                          <th >Matière2</th>
+                          <th >Matière3</th>
+                          <th >Matière4</th>
+
+                      </tr>
+                      <tr >
+                        <td *ngFor="let Matierss of Matierssprof">{{Matierss.Matiere}}</td>
+
+
+                      </tr>
+          
+                      <tr *ngIf="showmodif" >
+                        <td>
+                          <select   class="custom-select form-control "   formControlName="Matiere1"  >
+                            <option value="" disabled selected >Modifier la Matière</option>
+                            <option *ngFor="let Matier of Matierss" value="{{Matier.Matiere}}">{{Matier.Matiere}}</option>
+                          </select> 
+                        </td>
+                        <td>
+                          <select   class="custom-select form-control "  formControlName="Matiere2"  >
+                            <option value="" disabled selected >Modifier la Matière</option>
+                            <option *ngFor="let Matier of Matierss" value="{{Matier.Matiere}}">{{Matier.Matiere}}</option>
+                          </select> 
+                        </td>
+                        <td>
+                          <select   class="custom-select form-control "  formControlName="Matiere3"  >
+                            <option value="" disabled selected >Modifier la Matière</option>
+                            <option *ngFor="let Matier of Matierss" value="{{Matier.Matiere}}">{{Matier.Matiere}}</option>
+                          </select> 
+                        </td>
+                        <td>
+                          <select   class="custom-select form-control "  formControlName="Matiere4"  >
+                            <option value="" disabled selected >Modifier la Matière</option>
+                            <option *ngFor="let Matier of Matierss" value="{{Matier.Matiere}}">{{Matier.Matiere}}</option>
+                          </select> 
+                        </td>
+                        
+                      </tr>
+                      <tr *ngIf="!showmodif" >
+                          <td>
+                              <select   class="custom-select form-control "  formControlName="Matiere1"  >
+                                <option value="" disabled selected >Ajouter la Matière</option>
+                                <option *ngFor="let Matier of Matierss" value="{{Matier.Matiere}}">{{Matier.Matiere}}</option>
+                              </select> 
+                            </td>
+                            <td>
+                              <select   class="custom-select form-control "  formControlName="Matiere2"  >
+                                <option value="" disabled selected >Ajouter la Matière</option>
+                                <option *ngFor="let Matier of Matierss" value="{{Matier.Matiere}}">{{Matier.Matiere}}</option>
+                              </select> 
+                            </td>
+                            <td>
+                              <select   class="custom-select form-control "  formControlName="Matiere3"  >
+                                <option value="" disabled selected >Ajouter la Matière</option>
+                                <option *ngFor="let Matier of Matierss" value="{{Matier.Matiere}}">{{Matier.Matiere}}</option>
+                              </select> 
+                            </td>
+                            <td>
+                              <select   class="custom-select form-control "  formControlName="Matiere4"  >
+                                <option value="" disabled selected >Ajouter la Matière</option>
+                                <option *ngFor="let Matier of Matierss" value="{{Matier.Matiere}}">{{Matier.Matiere}}</option>
+                              </select> 
+                            </td>
+                          
+                        </tr>
+                      
+                    </table>
+                    </form>
+                    <td>
+                      <button class="btn btn-info btn-sm pull-right"  (click)="adddmatier()" >
+                        Confirmer
+                      </button>
+                    </td>
+                  </div>
+                  
+                </div>
+                
+              </div>
+            </div>
+            <div class="modal fade" id="myModaladdplanetud" role="dialog">
+                <div class="modal-dialog modal-lg">
+                
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        
+
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Cours</th>
+                                <th>Année universitaire</th>
+                                <th>Semestre</th>
+                                <th>Plages horaire</th>
+                                <th>Régime(Mixte/CC)</th>
+                                <th>Supprimer</th>
+                                
+                            </tr>
+                            <tr *ngFor="let planetsprof of planetsprofs">
+                                <td style="word-break:break-all; width: 10% " >{{ planetsprof.publiicccc_cible }}</td>
+                                <td style="word-break:break-all; width: 10% " >{{ planetsprof.annee_universitaire }}</td>
+                                <td style="word-break:break-all; width: 10% " >{{ planetsprof.semestre }}</td>
+                                <td style="word-break:break-all; width: 10% " >{{ planetsprof.Plage_Horaire }}</td>
+                                <td style="word-break:break-all; width: 10% " >{{ planetsprof.Regime }}</td>
+                                <td style="word-break:break-all; width: 10% ">
+                                  <button class="btn btn-info btn-sm" (click)="removeplantetud(planetsprof)">
+                                    <i class="fa fa-trash" style="color:white;"></i>
+                                  </button>
+                                </td>
+                               
+                            </tr>
+                            
+                           
+                          </table>
+                      
+                        <div class="container ">
+                            <div class="row it">
+                            <div class="col-sm-offset-1 col-sm-12" id="one">
+                            <div class="row">
+                              <div class="col-sm-offset-4 col-sm-4 form-group">
+                                <h3 class="text-center"><b>Espace d'ajout</b></h3>
+                              </div><!--form-group-->
+                            </div><!--row-->
+                            <div id="uploader">
+                            <div class="row uploadDoc ">
+                                <div class="col-sm-12">
+                                    <form [formGroup]="planetudformon">
+                                        <div class="col-sm-5">
+                                            <div class="fileUpload btn btn-orange">
+                                                <img src="https://image.flaticon.com/icons/svg/136/136534.svg" class="icon">
+                                                <span class="upl" id="upload">Ajouter un fichier CSV </span>
+                                                <input type="file" class="upload up" id="up" accept=".csv"  (change)="csvChanged($event)" class="file-upload-native" />
+                                              </div>
+                                          </div>
+                                          
+                                        <div style="text-align:center"><h3><b>Filières :</b></h3></div> <br>
+                                        
+                                      <div class="row" style="margin:5px">
+                                      <div class="col-sm-2">
+                                      <input type="checkbox" class="LAI1" formControlName="LAI1"  value="LAI1">LAI1
+                                      </div>
+                                      <div class="col-sm-2">
+                                      <input type="checkbox" class="LFI1" formControlName="LFI1"  value="LFI1">LFI1
+                                      </div>
+                                      <div class="col-sm-2">
+                                      <input type="checkbox" class="ARS1"  formControlName="ARS1"  value="ARS1">ARS1
+                                      </div>
+                                      <div class="col-sm-2">
+                                      <input type="checkbox" class="MPASSR1"  formControlName="MPASSR1"  value="MPASSR1">MP-ASSR1
+                                      </div>
+                                      <div class="col-sm-2">
+                                      <input type="checkbox" class="MPTSD1"  formControlName="MPTSD1"  value="MPTSD1">MP-TSD1
+                                      </div>
+                                      </div>
+                                      <div class="row" style="margin:5px">
+                                      <div class="col-sm-2">
+                                      <input type="checkbox" class="LAI2"   formControlName="LAI2" value="LAI2" >LAI2
+                                      </div>
+                                      <div class="col-sm-2">
+                                      <input type="checkbox"  class="LFI2"  formControlName="LFI2"  value="LFI2">LFI2
+                                      </div>
+                                      <div class="col-sm-2">
+                                      <input type="checkbox" class="ARS2"  formControlName="ARS2" value="ARS2">ARS2
+                                      </div>
+                                      <div class="col-sm-2">
+                                      <input type="checkbox" class="MPASSR2"  formControlName="MPASSR2" value="MPASSR2">MP-ASSR2
+                                      </div>
+                                      <div class="col-sm-2">
+                                      <input type="checkbox" class="MPTSD2" formControlName="MPTSD2" value="MPTSD2">MP-TSD2
+                                      </div>
+                                      </div>
+                                      <div class="row" style="margin:5px">
+                                      <div class="col-sm-2">
+                                      <input type="checkbox"  class="LAI3" formControlName="LAI3" value="LAI3" >LAI3
+                                      </div>
+                                      <div class="col-sm-2">
+                                      <input type="checkbox" class="LFI3"  formControlName="LFI3" value="LFI3">LFI3
+                                      </div>
+                                      <div class="col-sm-2">
+                                      <input type="checkbox" class="ARS3"  formControlName="ARS3" value="ARS3">ARS3
+                                      </div>
+                                      </div>
+                                      <input type="text" placeholder="Plages horaire" class="form-control " formControlName="Horaire"><br>
+                                       <input type="text" placeholder="Régime(Mixte/CC)" class="form-control " formControlName="Regime"><br>
+                                       <input type="text" placeholder="Année universitaire" class="form-control " formControlName="AU"><br>
+                                       <input type="text" placeholder="Semestre" class="form-control " formControlName="semestre"><br>
+                                     
+                                       
+                                       
+                                      
+                                      
+                                    </form>
+                                </div><!--col-8-->
+                                  
+                              
+                            </div><!--row-->
+                            </div><!--uploader-->
+                            <div class="text-center">
+                            <button (click)="sendplanetud()" [disabled]="planetudformon.invalid && csvfileformationok" style="color:white" class="btn btn-info"><i style="color:white"  class="fa fa-paper-plane"></i> Confirmer</button>
+                            </div>
+                            </div><!--one-->
+                            </div><!-- row -->
+                            </div><!-- container -->
+
+
+
+                        
+                      
+                    </div>
+                    
+                  </div>
+                  
+                </div>
+              </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="card">
+          <div class="card-header card-header-danger">
+              <h3 class="card-title">Notifications</h3>
+              <p class="card-category">Handcrafted by our friend
+                  <a target="_blank" href="https://github.com/mouse0270">Robert McIntosh</a>. Please checkout the
+                  <a href="http://bootstrap-notify.remabledesigns.com/" target="_blank">full documentation.</a>
+              </p>
+          </div>
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-md-6">
+                      <h4 class="card-title">Notifications Style</h4>
+                      <div class="alert alert-info">
+                          <span>This is a plain notification</span>
+                      </div>
+                      <div class="alert alert-info">
+                          <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <i class="material-icons">close</i>
+                          </button>
+                          <span>This is a notification with close button.</span>
+                      </div>
+                      <div class="alert alert-info alert-with-icon" data-notify="container">
+                          <i class="material-icons" data-notify="icon">add_alert</i>
+                          <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <i class="material-icons">close</i>
+                          </button>
+                          <span data-notify="message">This is a notification with close button and icon.</span>
+                      </div>
+                      <div class="alert alert-info alert-with-icon" data-notify="container">
+                          <i class="material-icons" data-notify="icon">add_alert</i>
+                          <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <i class="material-icons">close</i>
+                          </button>
+                          <span data-notify="message">This is a notification with close button and icon and have many lines. You can see that the icon and the close button are always vertically aligned. This is a beautiful notification. So you don't have to worry about the style.</span>
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                      <h4 class="card-title">Notification states</h4>
+                      <div class="alert alert-info">
+                          <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <i class="material-icons">close</i>
+                          </button>
+                          <span>
+                              <b> Info - </b> This is a regular notification made with ".alert-info"</span>
+                      </div>
+                      <div class="alert alert-success">
+                          <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <i class="material-icons">close</i>
+                          </button>
+                          <span>
+                              <b> Success - </b> This is a regular notification made with ".alert-success"</span>
+                      </div>
+                      <div class="alert alert-warning">
+                          <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <i class="material-icons">close</i>
+                          </button>
+                          <span>
+                              <b> Warning - </b> This is a regular notification made with ".alert-warning"</span>
+                      </div>
+                      <div class="alert alert-danger">
+                          <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <i class="material-icons">close</i>
+                          </button>
+                          <span>
+                              <b> Danger - </b> This is a regular notification made with ".alert-danger"</span>
+                      </div>
+                      <div class="alert alert-primary">
+                          <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <i class="material-icons">close</i>
+                          </button>
+                          <span>
+                              <b> Primary - </b> This is a regular notification made with ".alert-primary"</span>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-12">
+              <div class="places-buttons">
+                  <div class="row">
+                      <div class="col-md-6 ml-auto mr-auto text-center">
+                          <h4 class="card-title">
+                              Notifications Places
+                              <p class="category">Click to view notifications</p>
+                          </h4>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-lg-8 col-md-10 ml-auto mr-auto">
+                          <div class="row">
+                              <div class="col-md-4">
+                                  <button mat-raised-button class="btn btn-danger btn-block" (click)="showNotification('top','left')">Top Left</button>
+                              </div>
+                              <div class="col-md-4">
+                                  <button mat-raised-button class="btn btn-danger btn-block" (click)="showNotification('top','center')">Top Center</button>
+                              </div>
+                              <div class="col-md-4">
+                                  <button mat-raised-button class="btn btn-danger btn-block" (click)="showNotification('top','right')">Top Right</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-lg-8 col-md-10 ml-auto mr-auto">
+                          <div class="row">
+                              <div class="col-md-4">
+                                  <button mat-raised-button class="btn btn-danger btn-block" (click)="showNotification('bottom','left')">Bottom Left</button>
+                              </div>
+                              <div class="col-md-4">
+                                  <button mat-raised-button class="btn btn-danger btn-block" (click)="showNotification('bottom','center')">Bottom Center</button>
+                              </div>
+                              <div class="col-md-4">
+                                  <button mat-raised-button class="btn btn-danger btn-block" (click)="showNotification('bottom','right')">Bottom Right</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+-->

@@ -1,0 +1,1588 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="card card-plain" *ngIf="isAuth">
+
+      <div class="   card-header-info">
+
+        <h4><b>Bienvenue</b></h4>
+        {{ enseignant.nom }}
+        {{ enseignant.prenom }}
+
+
+
+        <button class="btn  btn-info  btn-round btn-just-icon " data-target="#modifer" data-toggle="modal">
+          <i class="material-icons">settings</i>
+          <div class="ripple-container"></div>
+        </button>
+
+        <div class="card-header-image">
+
+          <input type="file" name="file" (change)="detectFiles($event)" class="file-upload-native resizeinput"
+            style="width: 80px" accept="image/*" />
+          <img class="image-upload-wrapper " [src]="enseignant.photo || ''">
+          <!--change :function ki teklilki 3Liha tetbadel taswira-->
+          <div id="tab" class="btn-group " data-toggle="buttons-radio">
+            <a id="messaaggee" class="buttonn button btn btn-secondary nav" data-toggle="tab" href="#Messagerie"
+              role="tab"><b>Messagerie</b></a>
+          </div>
+          <div id="tab" class="btn-group " data-toggle="buttons-radio">
+            <a id="formationn" class="buttonn button btn btn-secondary nav" data-toggle="tab" href="#formation"
+              role="tab"><b>Formation</b></a>
+          </div>
+          <div id="tab" class="btn-group " data-toggle="buttons-radio">
+            <a class="buttonn button btn btn-secondary nav" data-toggle="tab" href="#Sondage"
+              role="tab"><b>Sondage</b></a>
+          </div>
+          <div id="tab" class="btn-group " data-toggle="buttons-radio">
+            <a id="evenement" class="buttonn button btn btn-secondary nav" data-toggle="tab" href="#evenementt"
+              role="tab"><b>Événement</b></a>
+          </div>
+
+          <div id="tab" class="btn-group " data-toggle="buttons-radio">
+            <a id="cours" class="buttonn button btn btn-secondary nav" (click)="detectcour()" data-toggle="tab"
+              href="#Cour" role="tab"><b>Cours</b></a>
+          </div>
+
+        </div>
+      </div>
+
+
+
+      <div class="row">
+
+        <div class="tab-content col-md-9">
+          <!-----------------------------------------Messagerie--------------------------------------------->
+          <div id="Messagerie" class="tab-pane ">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+
+                  <div class="container">
+                      <div data-toggle="buttons-radio">
+                          <a class="close btn-sm size nav btn"   data-toggle="tab" href="#home1" role="tab">&times;</a>
+                      </div>
+                      
+                    <div class="d-flex justify-content-center ">
+                      <div class="col-md-12 ">
+
+                        <nav class="nav nav-tabs justify-content-center">
+                          <div class="nav  nav-tabs nav-fill" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link  active" style="width: 373px" id="nav-Reçu-tab"
+                              data-toggle="tab" href="#nav-Reçu" role="tab" aria-controls="nav-Reçu"
+                              aria-selected="true"><b>Messages Reçus</b></a>
+                            <a class="nav-item nav-link" style="width: 373px" id="nav-Envoyé-tab" data-toggle="tab"
+                              href="#nav-Envoyé" role="tab" aria-controls="nav-Envoyé" aria-selected="false"><b>Messages
+                                Envoyés</b></a>
+                          </div>
+                        </nav>
+                        <div class="tab-content" id="nav-tabContent">
+
+                          <!----------------------msg reçu------------------->
+                          <div class="tab-pane fade show active " id="nav-Reçu" role="tabpanel"
+                            aria-labelledby="nav-Reçu-tab">
+                            <table class="table table-striped">
+                              <tr>
+                                <th></th>
+                                <th>Source</th>
+                                <th>Sujet</th>
+                                <th>Message</th>
+                                <th>Date</th>
+                                <th>Répondre</th>
+                                <th>Supprimer</th>
+                              </tr>
+                              <tr *ngFor="let msg of msgs">
+                                <!--y5Arej bel msg bel msg-->
+                                <td class="inbox-small-cells" style="word-break:break-all; width: 1% "><i
+                                    class="fa fa-star"></i></td>
+                                <td style="word-break:break-all; width: 10% ">{{ msg.Source }}</td>
+                                <td style="word-break:break-all; width: 10%  ">{{ msg.Objet }}</td>
+                                <td style="word-break:break-all; ">{{ msg.Message }}</td>
+                                <td style="word-break:break-all; width: 20% ">{{ msg.Date }}</td>
+
+                                <td style="word-break:break-all; width: 10% ">
+                                  <button class="btn btn-info btn-sm" (click)="repondremesage(msg)" data-toggle="modal"
+                                    data-target="#repondremessage">
+                                    <!-------------------kif nenezel 3al boutoon yet7al model te3 repondre message-->
+                                    <i class="fa fa-envelope" style="color:white;"></i>
+                                  </button>
+                                </td>
+                                <td style="word-break:break-all; width: 10% ">
+                                  <button class="btn btn-info btn-sm" (click)="supprimermessageres(msg)">
+                                    <i class="fa fa-trash" style="color:white;"></i>
+                                  </button>
+                                </td>
+                              </tr>
+                            </table>
+
+                          </div>
+                          <!--------------------------------msg envoyé------------------------------->
+                          <div class="tab-pane fade" id="nav-Envoyé" role="tabpanel" aria-labelledby="nav-Envoyé-tab">
+                            <table class="table table-striped">
+                              <tr>
+                                <th></th>
+                                <th>Source</th>
+                                <th>Sujet</th>
+                                <th>Message</th>
+                                <th>Date</th>
+                                <th>Ressource</th>
+                                <th>Supprimer</th>
+                              </tr>
+                              <tr *ngFor="let msge of msgse">
+                                <td class="inbox-small-cells" style="word-break:break-all; width: 1% "><i
+                                    class="fa fa-star"></i></td>
+                                <td style="word-break:break-all; width: 10% ">{{ msge.Source }}</td>
+                                <td style="word-break:break-all; width: 10%  ">{{ msge.Objet }}</td>
+                                <td style="word-break:break-all; ">{{ msge.Message }}</td>
+                                <td style="word-break:break-all; width: 20% ">{{ msge.Date }}</td>
+                                <td style="word-break:break-all; width: 10% ">
+                                  <a [href]="msge.Ressource" *ngIf="msge.Ressource "><!--------kif tbda fama  ressource ray bech tadhhar el bouton-->
+                                    <button class="btn btn-info btn-sm">
+                                      <i class="fa fa-paperclip" style="color:white;"></i>
+                                    </button>
+                                  </a>
+                                </td>
+                                <td style="word-break:break-all; width: 10% ">
+                                  <button class="btn btn-info btn-sm" (click)="supprimermessageenv(msge)">
+                                    <i class="fa fa-trash" style="color:white;"></i>
+                                  </button>
+                                </td>
+                              </tr>
+                            </table>
+
+                          </div>
+                        </div>
+
+
+
+
+
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+
+          </div>
+          <!------------------------------------------formation--------------------------------------------->
+          <div id="formation" class="tab-pane">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="container">
+                      <div data-toggle="buttons-radio">
+                          <a class="close btn-sm size nav btn"   data-toggle="tab" href="#home1" role="tab">&times;</a>
+                      </div>
+
+                    <table class="table table-striped">
+                      <tr>
+                        <th>Libellé</th>
+                        <th>Public cible</th>
+                        <th>Nombre de cours</th>
+                        <th>Afficher Cours</th>
+                        <th>Supprimer</th>
+                      </tr>
+                      <tr *ngFor="let formationone of formationsone">
+                        <td style="word-break:break-all; width: 10% ">{{ formationone.Libelle }}</td>
+                        <td style="word-break:break-all; width: 10% ">{{ formationone.publiicccc_cible }}</td>
+                        <td style="word-break:break-all; width: 10% ">{{ formationone.nbcour }}</td>
+                        <td style="word-break:break-all; width: 10% ">
+                          <!-----------------------------------afficher cours formation ---------------------------->
+                          <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModalformation"
+                            (click)="detecttypeformation(formationone)">
+                            <i class="fa fa-book" style="color:white;"></i>
+                          </button>
+                        </td>
+                        <!-----------------------------------------suppriemr cours formation-------------------->
+                        <td style="word-break:break-all; width: 10% ">
+                          <button class="btn btn-info btn-sm" (click)="removeformationone(formationone)">
+                            <i class="fa fa-trash" style="color:white;"></i>
+                          </button>
+                        </td>
+                      </tr>
+
+                    </table>
+
+                    <div class="container ">
+                      <div class="row it">
+                        <div class="col-sm-offset-1 col-sm-12" id="one">
+                          <div class="row">
+                            <div class="col-sm-offset-4 col-sm-4 form-group">
+                              <h3 class="text-center"><b>Espace d'ajout</b></h3>
+                            </div>
+                            <!--form-group-->
+                          </div>
+                          <!--row-->
+                          <div id="uploader">
+                            <div class="row uploadDoc ">
+                              <div class="col-sm-12">
+                                <form [formGroup]="formationformon">
+                                  <input type="text" placeholder="Libellé" class="form-control "
+                                    formControlName="Libelle"><br>
+                                  <input type="text" placeholder="Prérequis" class="form-control "
+                                    formControlName="Prerequis"><br>
+                                  <textarea placeholder="Description" class="form-control "
+                                    formControlName="Description"></textarea><br>
+                                  <input type="text" placeholder="Compétence" class="form-control "
+                                    formControlName="Competences"><br>
+
+                                  <div style="text-align:center">
+                                    <h3><b>Filières :</b></h3>
+                                  </div> <br>
+                                  <div class="row" style="margin:5px">
+                                    <div class="col-sm-2">
+                                      <input type="checkbox" class="LAI1" formControlName="LAI1" value="LAI1">LAI1
+                                    </div>
+                                    <div class="col-sm-2">
+                                      <input type="checkbox" class="LFI1" formControlName="LFI1" value="LFI1">LFI1
+                                    </div>
+                                    <div class="col-sm-2">
+                                      <input type="checkbox" class="ARS1" formControlName="ARS1" value="ARS1">ARS1
+                                    </div>
+                                    <div class="col-sm-2">
+                                      <input type="checkbox" class="MPASSR1" formControlName="MPASSR1"
+                                        value="MP-ASSR1">MP-ASSR1
+                                    </div>
+                                    <div class="col-sm-2">
+                                      <input type="checkbox" class="MPTSD1" formControlName="MPTSD1"
+                                        value="MP-TSD1">MP-TSD1
+                                    </div>
+                                  </div>
+                                  <div class="row" style="margin:5px">
+                                    <div class="col-sm-2">
+                                      <input type="checkbox" class="LAI2" formControlName="LAI2" value="LAI2">LAI2
+                                    </div>
+                                    <div class="col-sm-2">
+                                      <input type="checkbox" class="LFI2" formControlName="LFI2" value="LFI2">LFI2
+                                    </div>
+                                    <div class="col-sm-2">
+                                      <input type="checkbox" class="ARS2" formControlName="ARS2" value="ARS2">ARS2
+                                    </div>
+                                    <div class="col-sm-2">
+                                      <input type="checkbox" class="MPASSR2" formControlName="MPASSR2"
+                                        value="MP-ASSR2">MP-ASSR2
+                                    </div>
+                                    <div class="col-sm-2">
+                                      <input type="checkbox" class="MPTSD2" formControlName="MPTSD2"
+                                        value="MP-TSD2">MP-TSD2
+                                    </div>
+                                  </div>
+                                  <div class="row" style="margin:5px">
+                                    <div class="col-sm-2">
+                                      <input type="checkbox" class="LAI3" formControlName="LAI3" value="LAI3">LAI3
+                                    </div>
+                                    <div class="col-sm-2">
+                                      <input type="checkbox" class="LFI3" formControlName="LFI3" value="LFI3">LFI3
+                                    </div>
+                                    <div class="col-sm-2">
+                                      <input type="checkbox" class="ARS3" formControlName="ARS3" value="ARS3">ARS3
+                                    </div>
+                                  </div>
+                                  <!----------------------------------ajouter photo--------------->
+                                  <div class="col-sm-4">
+                                    <div class="fileUpload btn btn-orange">
+                                      <img src="https://image.flaticon.com/icons/svg/136/136524.svg" class="icon">
+                                      <span class="upl" id="upload">Ajouter Photo</span>
+                                      <input type="file" class="upload up" id="up"
+                                        (change)="detectimageformation($event)" class="file-upload-native" />
+                                    </div>
+                                  </div>
+
+
+
+
+                                </form>
+                              </div>
+
+
+                            </div>
+                          </div>
+                          <!---------------------------bouton confirmer------------------------------>
+                          <div class="text-center">
+                            <button (click)="sendformationone()"
+                              [disabled]="formationformon.invalid || imageformationok" style="color:white"
+                              class="btn btn-info">
+                              <i style="color:white" class="fa fa-paper-plane"></i>
+                              Confirmer
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-------------------------------------table f acceuil te3 ensei-------------------------------------->
+          <div id="home1" class="tab-pane active">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="container">
+                    <div class="d-flex justify-content-center ">
+                      <div class="col-md-12 ">
+                        <h2 style="color:#485fed;text-align: center; "> Plan d'étude </h2>
+
+                        <table class="table table-striped">
+                          <tr style="background-color: orange">
+                            <th>Cours</th>
+                            <th>Année universitaire</th>
+                            <th>Semestre</th>
+                            <th>Plages horaire</th>
+                            <th>Régime(Mixte/CC)</th>
+
+
+                          </tr>
+                          <tr *ngFor="let planetsprof of planetsprofs">
+                            <td style="word-break:break-all; width: 10% ">{{ planetsprof.publiicccc_cible }}</td>
+                            <td style="word-break:break-all; width: 10% ">{{ planetsprof.annee_universitaire }}</td>
+                            <td style="word-break:break-all; width: 10% ">{{ planetsprof.semestre }}</td>
+                            <td style="word-break:break-all; width: 10% ">{{ planetsprof.Plage_Horaire }}</td>
+                            <td style="word-break:break-all; width: 10% ">{{ planetsprof.Regime }}</td>
+
+
+                          </tr>
+
+                        </table>
+
+
+
+
+
+
+                      </div>
+
+
+
+
+
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+
+          </div>
+          <!---------------------------------------evenementt------------------------------------------------>
+          <div id="evenementt" class="tab-pane">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="container">
+                      <div data-toggle="buttons-radio">
+                          <a class="close btn-sm size nav btn"   data-toggle="tab" href="#home1" role="tab">&times;</a>
+                      </div>
+                      <br>
+                    <h4 *ngIf="showeventsel" class="text-center card-title"><b>Événement sélectionnés </b></h4>
+                    <div *ngIf="showeventsel" class="d-flex justify-content-center ">
+                      <div class="col-md-12 ">
+
+                        <table class="table table-striped">
+                          <tr>
+                            <th>Photo</th>
+                            <th>Titre</th>
+                            <th>Discription</th>
+                            <th>Date</th>
+                            <th>Participez</th>
+                          </tr>
+
+                          <tr *ngFor="let showevente of showeventelect">
+                            <td style="word-break:break-all; "> <img class="image-upload-wrapper"
+                                [src]="showevente?.photo || '' "> </td>
+                            <td style="word-break:break-all; width: 20% ">{{ showevente.Nom }}</td>
+                            <td style="word-break:break-all; width: 60%  ">{{ showevente.Discription  }}</td>
+                            <td style="word-break:break-all; width: 12% ">{{ showevente.Temps }}</td>
+                            <td style="text-align: center;" *ngIf="(showevente.nbplace>showevente.nuberPartcipent)">
+
+                              <button *ngIf="!inscriiievent" (click)="check(showevente.Nom)" title="désinscrit"
+                                type="button" class="btn btn-info "><!---mayadhhar el element ken matbda el condition ali fwast el ng if s7i7a-->
+                                <i class="fa fa-plus"></i>
+                              </button>
+                              <button *ngIf="inscriiievent" (click)="check(showevente.Nom)" title="inscrit"
+                                type="button" class="btn btn-info ">
+                                <i class="fa fa-minus"></i>
+                              </button>
+                            </td>
+                          </tr>
+                        </table>
+
+                      </div>
+
+                    </div>
+                    <h4 class="text-center card-title"><b>A quelle événement voulez-vous participez :</b></h4>
+                    <div class="d-flex justify-content-center ">
+                      <div class="col-md-12 ">
+
+                        <table class="table table-striped">
+                          <tr>
+                            <th>Photos</th>
+                            <th>Titre</th>
+                            <th>Discriptions</th>
+                            <th>Date</th>
+                            <th>Participez</th>
+                          </tr>
+
+                          <tr *ngFor="let event of events">
+                            <td style="word-break:break-all; "> <img class="image-upload-wrapper"
+                                [src]="event?.photo || '' "> </td>
+                            <td style="word-break:break-all; width: 20% ">{{ event.Nom }}</td>
+                            <td style="word-break:break-all; width: 60%  ">{{ event.Discription  }}</td>
+                            <td style="word-break:break-all; width: 12% ">{{ event.Temps }}</td>
+                            <td style="text-align: center;" *ngIf="(event.nbplace>event.nuberPartcipent)">
+                              <button *ngIf="!inscriiievent" (click)="check(event.Nom)" title="Participer" type="button"
+                                class="btn btn-info ">
+                                <i class="fa fa-plus"></i>
+                              </button>
+                              <button *ngIf="inscriiievent" (click)="check(event.Nom)" title="s'abstenir" type="button"
+                                class="btn btn-info ">
+                                <i class="fa fa-minus"></i>
+                              </button>
+                            </td>
+                          </tr>
+                        </table>
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+
+            </div>
+          </div>
+          <!-------------------------------------------------------------------------     -->
+          <!------------------------------------------------sondage------------------------------------------------>
+          <div id="Sondage" class="tab-pane">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="container">
+                      <div data-toggle="buttons-radio">
+                          <a class="close btn-sm size nav btn"   data-toggle="tab" href="#home1" role="tab">&times;</a>
+                      </div>
+
+                    <table class="table table-striped">
+                      <tr>
+                        <th>Titre formation</th>
+                        <th>Date</th>
+                        <th>Nombre de Votes</th>
+                        <th>Modifier</th>
+                        <th>Supprimer</th>
+                      </tr>
+                      <!----------------line louwla te3 tabmou(awel sondage)---------->
+                      <tr *ngFor="let sondformation of sondformations">
+                        <!--------------------------------nom de formation----------------->
+                        <td style="word-break:break-all; width: 10% ">
+                          <div *ngIf="sondformation.forme1">{{ sondformation.forme1 }},</div>
+                          <div *ngIf="sondformation.forme2">{{ sondformation.forme2 }},</div>
+                          <div *ngIf="sondformation.forme3">{{ sondformation.forme3 }},</div>
+                          <div *ngIf="sondformation.forme4">{{ sondformation.forme4 }},</div>
+                          <div *ngIf="sondformation.forme5">{{ sondformation.forme5 }}</div>
+                        </td>
+                        <!-------------------------------------date de sondage------------------------>
+                        <td style="word-break:break-all; width: 10% ">{{ sondformation.Date }}</td>
+                        <!--------------------------------nbvote----------------------------->
+                        <td style="word-break:break-all; width: 10% ">
+                          <div *ngIf="sondformation.forme1" (click)="showform1(sondformation)" data-toggle="modal"
+                            data-target="#myModalsondage">{{ sondformation.forme1 }} / {{ sondformation.forme1nb }}
+                            ({{sondformation.forme1nbpers}}%)</div>
+                          <div *ngIf="sondformation.forme2" (click)="showform2(sondformation)" data-toggle="modal"
+                            data-target="#myModalsondage">{{ sondformation.forme2 }} / {{ sondformation.forme2nb }}
+                            ({{sondformation.forme2nbpers}}%)</div>
+                          <div *ngIf="sondformation.forme3" (click)="showform3(sondformation)" data-toggle="modal"
+                            data-target="#myModalsondage">{{ sondformation.forme3 }} / {{ sondformation.forme3nb }}
+                            ({{sondformation.forme3nbpers}}%)</div>
+                          <div *ngIf="sondformation.forme4" (click)="showform4(sondformation)" data-toggle="modal"
+                            data-target="#myModalsondage">{{ sondformation.forme4 }} / {{ sondformation.forme4nb }}
+                            ({{sondformation.forme4nbpers}}%)</div>
+                          <div *ngIf="sondformation.forme5" (click)="showform5(sondformation)" data-toggle="modal"
+                            data-target="#myModalsondage">{{ sondformation.forme5 }} / {{ sondformation.forme5nb }}
+                            ({{sondformation.forme5nbpers}}%)</div>
+                        </td>
+                        <!--------------------------------modifier--------------------------------------->
+                        <td style="word-break:break-all; width: 10% ">
+                          <button class="btn btn-info btn-sm" (click)="detecctttcodesondform(sondformation)"
+                            data-toggle="modal" data-target="#MOdifsondage">
+                            <i class="fa fa-pencil-square" style="color:white;"></i>
+                          </button>
+                        </td>
+                        <!----------------------------------supprimer----------------------->
+                        <td style="word-break:break-all; width: 10% ">
+                          <button class="btn btn-info btn-sm" (click)="removesondage(sondformation)">
+                            <i class="fa fa-trash" style="color:white;"></i>
+                          </button>
+                        </td>
+                      </tr>
+
+                    </table>
+
+                    <div class="container ">
+                      <div class="row it">
+                        <div class="col-sm-offset-1 col-sm-10" id="one">
+                          <div class="row">
+                            <div class="col-sm-offset-4 col-sm-4 form-group">
+                              <h3 class="text-center"><b>Créer un Sondage</b></h3>
+                            </div>
+                          </div>
+                          <div id="uploader">
+                            <div class="row uploadDoc ">
+                              <div class="col-sm-12">
+                                <form [formGroup]="sondageform">
+                                  <input type="text" placeholder="Titre formation" class="form-control "
+                                    formControlName="form1">
+                                  <input type="text" placeholder="Titre formation" class="form-control "
+                                    formControlName="form2">
+                                  <input type="text" placeholder="Titre formation" class="form-control "
+                                    formControlName="form3">
+                                  <input type="text" placeholder="Titre formation" class="form-control "
+                                    formControlName="form4">
+                                  <input type="text" placeholder="Titre formation" class="form-control "
+                                    formControlName="form5">
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="text-center">
+                            <button (click)="sendsondage()" [disabled]="sondageform.invalid" style="color:white"
+                              class="btn btn-info"><i style="color:white" class="fa fa-paper-plane"></i>
+                              Confirmer</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--------------------------------------Cours-------------------------------------------->
+          <div id="Cour" class="tab-pane ">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="container">
+                    <div data-toggle="buttons-radio">
+                        <a class="close btn-sm size nav btn"   data-toggle="tab" href="#home1" role="tab">&times;</a>
+                    </div>
+
+                    <div class="d-flex justify-content-center ">
+                      <div class="col-md-12 ">
+
+
+
+                        <table class="table table-striped">
+                          <tr>
+                            <th>Filiéres</th>
+                            <th>Nom</th>
+                            <th>Commentaire</th>
+                            <th>Nombre des j'aimes</th>
+                            <th>Nombre des commentaires</th>
+                            <th>Cours PDF</th>
+                            <th>Cours Vidéos</th>
+                            <th>Supprimer</th>
+                          </tr>
+                          <tr *ngFor="let cour of cours">
+                            <td style="word-break:break-all; width: 10% ">{{ cour.Class }}</td>
+                            <td style="word-break:break-all; width: 10% ">{{ cour.Matiere }}</td>
+                            <td style="word-break:break-all;">{{ cour.Comment }}</td>
+                            <td style="word-break:break-all; width: 5% ">
+                              <button class="btn btn-info btn-sm" (click)="showjaime(cour)" data-toggle="modal"
+                                data-target="#myModaljaime">
+                                {{ cour.nuberjaime }}
+                              </button>
+                            </td>
+                            <td style="word-break:break-all; width: 5% ">
+
+                              <button class="btn btn-info btn-sm" (click)="showcomment(cour)" data-toggle="modal"
+                                data-target="#myModalcomment">
+                                {{ cour.nubrecomment}}
+                              </button>
+                            </td>
+
+                            <td style="word-break:break-all; width: 5% ">
+                              <a [href]="cour.PDF" *ngIf="cour.PDF !== 'undefined'"><!------------------mayadhhhar ken maayabda fama cours pdf(conditon s7i7a)----------------->
+                                <button title="télécharger" type="button" class="btn btn-info btn-sm ">
+                                  <i class="fa fa-download" style="color:white;"></i>
+                                </button>
+                              </a>
+                            </td>
+                            <td style="word-break:break-all; width:5% ">
+
+                              <button type="button" *ngIf="cour.Video !== 'undefined' " title="Vidéos"
+                                class="btn btn-info btn-sm " (click)="playvidformation(cour.Video)" data-toggle="modal"
+                                data-target="#myvideoform"><!-----------kif nenzel al bouton yet7al model te3 video------------>
+                                <i class="fa fa-video-camera" style="color:white;"></i>
+
+                              </button>
+                            </td>
+
+                            <td style="word-break:break-all; width: 10% ">
+                              <button class="btn btn-info btn-sm" (click)="removeCour(cour)">
+                                <i class="fa fa-trash" style="color:white;"></i>
+                              </button>
+                            </td>
+                          </tr>
+
+
+                        </table>
+
+                        <div class="container ">
+                          <div class="row it">
+                            <div class="col-sm-offset-1 col-sm-10" id="one">
+                              <div class="row">
+                                <div class="col-sm-offset-4 col-sm-4 form-group">
+                                  <h3 class="text-center"><b>Espace de ressource</b></h3>
+                                </div>
+                               
+                              </div>
+                              
+                              <div id="uploader">
+                                <div class="row uploadDoc">
+                                  <div class="col-sm-12">
+                                    <form [formGroup]="Commentform">
+
+                                      <div style="text-align:center">
+                                        <h3><b>Filières</b></h3>
+                                      </div> <br>
+                                      <div *ngFor="let claseesh of claseeshow">
+                                        <div class="row" style="margin:5px">
+                                          <div *ngIf="claseesh.LAI1" class="col-sm-2">
+                                            <input type="checkbox" class="LAI1" formControlName="LAI1" value="LAI1">LAI1
+                                          </div>
+                                          <div *ngIf="claseesh.LFI1" class="col-sm-2">
+                                            <input type="checkbox" class="LFI1" formControlName="LFI1" value="LFI1">LFI1
+                                          </div>
+                                          <div *ngIf="claseesh.ARS1" class="col-sm-2">
+                                            <input type="checkbox" class="ARS1" formControlName="ARS1" value="ARS1">ARS1
+                                          </div>
+                                          <div *ngIf="claseesh.MPASSR1" class="col-sm-2">
+                                            <input type="checkbox" class="MPASSR1" formControlName="MPASSR1"
+                                              value="MP-ASSR1">MP-ASSR1
+                                          </div>
+                                          <div *ngIf="claseesh.MPTSD1" class="col-sm-2">
+                                            <input type="checkbox" class="MPTSD1" formControlName="MPTSD1"
+                                              value="MP-TSD1">MP-TSD1
+                                          </div>
+                                        </div>
+                                        <div class="row" style="margin:5px">
+                                          <div *ngIf="claseesh.LAI2" class="col-sm-2">
+                                            <input type="checkbox" class="LAI2" formControlName="LAI2" value="LAI2">LAI2
+                                          </div>
+                                          <div *ngIf="claseesh.LFI2" class="col-sm-2">
+                                            <input type="checkbox" class="LFI2" formControlName="LFI2" value="LFI2">LFI2
+                                          </div>
+                                          <div *ngIf="claseesh.ARS2" class="col-sm-2">
+                                            <input type="checkbox" class="ARS2" formControlName="ARS2" value="ARS2">ARS2
+                                          </div>
+                                          <div *ngIf="claseesh.MPASSR2" class="col-sm-2">
+                                            <input type="checkbox" class="MPASSR2" formControlName="MPASSR2"
+                                              value="MPASSR2">MP-ASSR2
+                                          </div>
+                                          <div *ngIf="claseesh.MPTSD2" class="col-sm-2">
+                                            <input type="checkbox" class="MPTSD2" formControlName="MPTSD2"
+                                              value="MPTSD2">MP-TSD2
+                                          </div>
+                                        </div>
+                                        <div class="row" style="margin:5px">
+                                          <div *ngIf="claseesh.LAI3" class="col-sm-2">
+                                            <input type="checkbox" class="LAI3" formControlName="LAI3" value="LAI3">LAI3
+                                          </div>
+                                          <div *ngIf="claseesh.LFI3" class="col-sm-2">
+                                            <input type="checkbox" class="LFI3" formControlName="LFI3" value="LFI3">LFI3
+                                          </div>
+                                          <div *ngIf="claseesh.ARS3" class="col-sm-2">
+                                            <input type="checkbox" class="ARS3" formControlName="ARS3" value="ARS3">ARS3
+                                          </div>
+                                        </div>
+                                      </div>
+
+
+                                      <select class="custom-select" class="form-control " formControlName="Matiere">
+                                        <option value="" disabled selected>Les matiéres</option>
+                                        <option *ngFor="let Matierss of Matierssprof" value="{{Matierss.Matiere}}">
+                                          {{Matierss.Matiere}}</option>
+
+                                      </select>
+                                      <textarea class="form-control " formControlName="Comment"
+                                        placeholder="Commentaire"></textarea>
+
+                                    </form>
+                                  </div>
+                                 
+
+
+                                  <div class="col-sm-4">
+                                    <div class="fileUpload btn btn-orange">
+                                      <img src="https://image.flaticon.com/icons/svg/136/136522.svg" class="icon">
+                                      <span class="upl" id="upload">Ajouter PDF</span>
+                                      <input type="file" class="upload up" id="up" accept=".PDF "
+                                        (change)="detectcoure($event)" class="file-upload-native" />
+                                    </div>
+
+                                  </div>
+                                  <div class="col-sm-4">
+                                    <div class="fileUpload btn btn-orange">
+                                      <img src="https://image.flaticon.com/icons/svg/136/136545.svg" class="icon">
+                                      <span class="upl" id="upload">Ajouter Vidéo</span>
+                                      <input type="file" class="upload up" accept=".mp4 " id="up"
+                                        (change)="detectvideo($event)" class="file-upload-native" />
+                                    </div>
+                                  </div>
+
+                                </div>
+                               
+                              </div>
+                              
+                              <div class="text-center">
+                                <button (click)="send()" [disabled]="Commentform.invalid || (Videook && pdfok) "
+                                  style="color:white" class="btn btn-info"><i style="color:white"
+                                    class="fa fa-paper-plane"></i> Confirmer</button>
+                              </div>
+                            </div>
+                            
+                          </div>
+                        </div>
+
+
+
+
+
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+
+        <!-----------------------------------------Calendrier-------------------------------------------->
+        <div class="col-md-3">
+          <div class="card-body">
+
+            <!-------------------------date mta3 lyouma---------------------->
+            <div class="mobile-wrapper">
+              <section class="today-box" id="today-box">
+                <span>Aujourd'hui</span>
+
+                <h3 class="date-title " ng-app="myApp" ng-controller="datCtrl">{{ today | date }}</h3>
+
+                <div class="plus-icon">
+                  <i class="ion ion-ios-add"></i>
+                </div>
+              </section>
+
+              <!--======= Les archives événements =======-->
+
+              <section class="upcoming-events">
+                <button title="Evenet" type="button"
+                  style="background:#485fed;margin-top: 50px;margin-left: 18px;margin-bottom: -50px" data-toggle="modal"
+                  data-target="#showevent" class="btn  btn-xs btn-info ">
+                  <i class="fa fa-archive" style="color:white;"></i>Les archives événements
+                </button>
+                <div class="container">
+
+
+                  <h3>
+                    Aujourd'hui
+                  </h3>
+                  <div class=" events-wrapper">
+                    <div class="event active " (click)="showwtbd(eventsau)" *ngFor="let eventsau of eventsaujord">
+                      <i class="ion ion-ios-radio-button-on icon-in-active-mode"></i>
+                      <h4 class="event__point">{{ eventsau.Temps }}</h4>
+                      <h3><b>{{ eventsau.Nom }}</b></h3>
+                      <p class="event__description">
+                        {{ eventsau.Discription }}
+                      </p>
+                    </div>
+                  </div>
+                  <h3>
+                    Les prochains événements
+                  </h3>
+                  <div class="events-wrapper">
+                    <div class="event active" (click)="showwtbd(eventspro)" *ngFor="let eventspro of eventspros">
+                      <i class="ion ion-ios-radio-button-on icon-in-active-mode"></i>
+                      <h4 class="event__point">{{ eventspro.Temps }}</h4>
+                      <h3><b>{{ eventspro.Nom }}</b></h3>
+                      <p class="event__description">
+                        {{ eventspro.Discription }}
+                      </p>
+                    </div>
+                  </div>
+
+
+
+
+                </div>
+              </section>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+  </div>
+
+</div>
+
+<div class="modal fade" id="showevent" role="dialog">
+  <div class="modal-dialog modal-md">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h1 style="text-align:center"><b>Les derniers événements</b></h1>
+        <section class="upcoming-events">
+          <div class="container">
+            <div class="events-wrapper">
+              <div class="event active" (click)="showwtbd(eventspro)" *ngFor="let eventsproseee of eventsproseeedddd">
+                <i class="ion ion-ios-radio-button-on icon-in-active-mode"></i>
+                <h4 class="event__point">{{ eventsproseee.Temps }}</h4>
+                <h3><b>{{ eventsproseee.Nom }}</b></h3>
+                <p class="event__description">
+                  {{ eventsproseee.Discription }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<!--------------------------------------------répondre meesaage-------------------------------------------------->
+<div class="modal fade" id="repondremessage" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" (ngSubmit)="sendmesintrep()" [formGroup]="Messagerep">
+
+
+          <input class="form-control" name="objet" id="objet" placeholder="Objet..." formControlName="objet" /><br>
+          <textarea class="form-control" name="text" id="text" formControlName="text" placeholder="Votre message"
+            style="height:150px;"></textarea><br>
+
+          <p class="text-danger">{{ errorMessage }}</p>
+          <input type="submit" [disabled]="Messagerep.invalid" class="btn btn-info pull-right" value="Envoyer"><br>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="modal fade" id="myModalformation" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div *ngFor="let formation of formations">
+        <h3 style="text-align: center">
+          <button type="button" title="Libelle" class="btn btn-info " data-toggle="modal"
+            data-target="#myModalafichherddetail">
+            <b>{{ formation.Libelle }}</b><!-----------------------majbouda m type script bech nafichouha fel bouton----------------------->
+          </button>
+        </h3>
+        <img class="image-upload-wrapper pull-right" style="margin-right:10px" [src]="formation.photo || ''">
+        <br>
+        <div style="text-align: center" class="card "><b>{{ formation.publiicccc_cible }}</b></div>
+
+        <div class="card ">
+          <!--Ressources-->
+          <br>
+          <h4><b>Les Ressource:</b></h4>
+          <br>
+          <table class="table table-striped">
+            <tr>
+              <th>Chapitre</th>
+              <th>Détail</th>
+              <th>Nombre des j'aimes</th>
+              <th>Nombre des commentaires</th>
+              <th>Cours PDF</th>
+              <th>Cours Vidéo</th>
+              <th>Supprimer</th>
+            </tr>
+            <tr *ngFor="let coursform of coursforms">
+
+              <td style="word-break:break-all; width: 10% ">{{ coursform.Chapiter }}</td>
+              <td style="word-break:break-all;">{{ coursform.Detail }}</td>
+
+              <td style="word-break:break-all; width: 10% ">
+
+                <button *ngIf="coursform.nuberjaime " class="btn btn-info btn-sm"
+                  (click)="showjaimeform(coursform,formation)" data-toggle="modal" data-target="#myModaljaime">
+                  {{ coursform.nuberjaime }}
+                </button>
+              </td>
+              <td style="word-break:break-all; width: 10% ">
+
+                <button *ngIf="coursform.nubrecomment " class="btn btn-info btn-sm"
+                  (click)="showcommentform(coursform,formation)" data-toggle="modal" data-target="#myModalcommentform">
+                  {{ coursform.nubrecomment }}
+                </button>
+
+              </td>
+
+
+              <td style="word-break:break-all; width: 10% ">
+                <a [href]="coursform.PDF" *ngIf="coursform.PDF !== 'undefined'">
+                  <button title="télécharger" type="button" class="btn btn-info btn-sm ">
+                    <i class="fa fa-download"></i>
+                  </button>
+                </a>
+              </td>
+              <td style="word-break:break-all; width: 10% ">
+
+                <button type="button" *ngIf="coursform.Video !== 'undefined' " title="Vidéos" class="btn btn-info btn-sm "
+                  (click)="playvidformation(coursform.Video)" data-toggle="modal" data-target="#myvideoform">
+                  <i class="fa fa-video-camera"></i>
+
+                </button>
+              </td>
+
+              <td style="word-break:break-all; width: 10% ">
+                <button class="btn btn-info btn-sm" (click)="removeformation(coursform,formation)">
+                  <i class="fa fa-trash" style="color:white;"></i>
+                </button>
+              </td>
+            </tr>
+
+          </table>
+<!-------------------------Espace ressource---------------------------------->
+          <div class="container ">
+            <div class="row it">
+              <div class="col-sm-offset-1 col-sm-12" id="one">
+                <div class="row">
+                  <div class="col-sm-offset-4 col-sm-4 form-group">
+                    <h3 class="text-center"><b>Espace de ressource:</b></h3>
+                  </div>
+                </div>
+                <div id="uploader">
+                  <div class="row uploadDoc ">
+                    <div class="col-sm-12">
+                      <form [formGroup]="formationform">
+                        <input type="text" placeholder="Chapitres" class="form-control " formControlName="Name">
+                        <textarea class="form-control " formControlName="detail" placeholder="Détails"></textarea>
+                      </form>
+                    </div>
+
+
+                    <div class="col-sm-4">
+                      <div class="fileUpload btn btn-orange">
+                        <img src="https://image.flaticon.com/icons/svg/136/136522.svg" class="icon">
+                        <span class="upl" id="upload">Ajouter cours PDF</span>
+                        <input type="file" class="upload up" id="up" accept=".pdf,.doc"
+                          (change)="detectcoureformation($event)" class="file-upload-native" />
+                      </div>
+
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="fileUpload btn btn-orange">
+                        <img src="https://image.flaticon.com/icons/svg/136/136545.svg" class="icon">
+                        <span class="upl" id="upload">Ajouter cours Vidéos</span>
+                        <input type="file" class="upload up" id="up" accept="video/mp4,video/x-m4v,video/*"
+                          (change)="detectvideoformation($event)" class="file-upload-native" />
+                      </div>
+                    </div>
+
+
+                  </div>
+                </div>
+                <div class="text-center">
+                  <button (click)="sendformation(formation)"
+                    [disabled]="formationform.invalid || (Videoformationok &&  pdfformationok)" style="color:white"
+                    class="btn btn-info"><i style="color:white" class="fa fa-paper-plane"></i> Confirmer</button>
+                </div>
+              </div>
+             
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="card">
+          <!--Évaluations-->
+          <br>
+          <h4><b>Évaluations:</b></h4>
+          <div class="pull-right"><button class="btn btn-info pull-right  " style="margin: 10px" data-toggle="modal"
+              data-target="#myModalevaluation">Ajouter Évaluation </button></div>
+          <table class="table table-striped">
+            <tr>
+              <th>Filières</th>
+              <th>Date</th>
+              <th>Liste des participants</th>
+              <th>Évaluation</th>
+              <th>Supprimer</th>
+            </tr>
+            <tr *ngFor="let evaluationfom of evaluationfomr">
+
+              <td style="word-break:break-all; width: 20% ">{{ evaluationfom.Class }}</td>
+              <td style="word-break:break-all;">{{ evaluationfom.Date }}</td>
+              <td style="word-break:break-all; width: 10%">
+
+                <button *ngIf="evaluationfom.nubrepaticipent" class="btn btn-info btn-sm"
+                  (click)="showinscrriiii(evaluationfom)" data-toggle="modal" data-target="#myModalParticipants">
+                  {{evaluationfom.nubrepaticipent}}
+                </button>
+
+
+              </td>
+              <td style="word-break:break-all; width: 10% ">
+                <button class="btn btn-info btn-sm" (click)="showevaluation(evaluationfom)" data-toggle="modal"
+                  data-target="#myModalevaluationshow">
+                  <i class="fa fa-list-alt" style="color:white;"></i>
+                </button>
+              </td>
+
+
+
+              <td style="word-break:break-all; width: 10% ">
+                <button class="btn btn-info btn-sm" (click)="removeevaluation(evaluationfom)">
+                  <i class="fa fa-trash" style="color:white;"></i>
+                </button>
+              </td>
+            </tr>
+
+          </table>
+
+        </div>
+        <br>
+        <button title="Message" type="button" data-toggle="modal" style="width: 300px; margin: 10px"
+          data-target="#envoyermsg" class="btn btn-info pull-right">
+          <i class="fa fa-envelope"></i> Envoyer email aux apprenants
+        </button>
+      </div>
+
+
+    </div>
+
+  </div>
+</div>
+<div class="modal fade" id="myModalParticipants" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <button type="button" class="btn btn-info pull-right btn-sm" (click)="print()">
+          <i class="fa fa-print" style="color:white;"></i>
+        </button>
+
+
+        <div id="print-section">
+          <table class="table table-striped">
+            <thead>
+              <th colspan="2" style="text-align:center">Liste Des Participants</th>
+            </thead>
+            <tr>
+              <td><b>Nom</b></td>
+              <td><b>prénom</b></td>
+            </tr>
+
+            <tr *ngFor="let particccpent of particccpents">
+
+              <td style="word-break:break-all; width: 19% "> {{ particccpent.Nom }} </td>
+              <td style="word-break:break-all; width: 19% "> {{ particccpent.prenom }} </td>
+
+
+            </tr>
+
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+<div class="modal fade" id="envoyermsg" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+
+        <form method="POST" (ngSubmit)="sendmesg()" [formGroup]="Messageformation">
+          <select class="custom-select" class="form-control " formControlName="Class">
+            <option value="" disabled selected>Tout les Class</option>
+            <option value="LAI1">LAI1</option>
+            <option value="LAI2">LAI2</option>
+            <option value="LAI3">LAI3</option>
+            <option value="LFI1">LFI1</option>
+            <option value="LFI2">LFI2</option>
+            <option value="LFI3">LFI3</option>
+            <option value="ARS1">ARS1</option>
+            <option value="ARS2">ARS2</option>
+            <option value="ARS3">ARS3</option>
+            <option value="MP-ASSR1">MP-ASSR1</option>
+            <option value="MP-ASSR2">MP-ASSR2</option>
+            <option value="MP-TSD1">MP-TSD1</option>
+            <option value="MP-TSD2">MP-TSD2</option>
+
+          </select>
+          <input class="form-control" name="Sujet" id="Sujet" placeholder="Sujet..." formControlName="Sujet" /><br>
+          <textarea class="form-control" name="text" id="text" formControlName="text" placeholder="Votre message"
+            style="height:150px;"></textarea><br>
+          <div class="col-sm-2">
+            <div class="fileUpload btn btn-orange">
+              <img src="https://image.flaticon.com/icons/svg/136/136549.svg" class="icon">
+              <span class="upl" id="upload">Ajouter pièce joint</span>
+              <input type="file" class="upload up" id="up" (change)="detectfichiermsg($event)"
+                class="file-upload-native" />
+            </div>
+
+          </div>
+          <input type="submit" [disabled]="Messageformation.invalid" class="btn btn-info pull-right"
+            value="Envoyer"><br>
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-----------------------------------------detail formation----------------------------------->
+<div class="modal fade" id="myModalafichherddetail" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h1 style="text-align:center">Détails Formations</h1>
+        <div *ngFor="let formation of formations">
+          <h2 style="text-align:center"><b>{{formation.Libelle}}</b></h2>
+          <b>-Compétence:</b> {{formation.Competences}}
+          <input class="form-control col-sm-4" placeholder="Modifier" id="Competences" type="text">
+          <button class="btn btn-info btn-sm" (click)="modifferform()">
+            <i class="fa fa-edit" style="color:white;"></i>
+          </button>
+          <br><br>
+          <b>-Description:</b> {{formation.Description}}
+          <input class="form-control col-sm-4" placeholder="Modifier" id="Description" type="text">
+          <button class="btn btn-info btn-sm" (click)="modifferform()">
+            <i class="fa fa-edit" style="color:white;"></i>
+          </button>
+          <br><br>
+          <b>-Prérequis:</b> {{formation.Prerequis}}
+          <input class="form-control col-sm-4" placeholder="Modifier" id="Prerequis" type="text">
+          <button class="btn btn-info btn-sm" (click)="modifferform()">
+            <i class="fa fa-edit" style="color:white;"></i>
+          </button>
+          <br><br>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<!------------------------------------------------video formation -------------------------------->
+
+<div class="modal fade" id="myvideoform" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+
+
+      <div class="modal-body">
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <p align="center"> <iframe id="video" width="420" height="315" src="" frameborder="0" allowfullscreen></iframe>
+        </p>
+
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<div class="modal fade" id="myModalevaluation" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input class="form-control Date" id="dateInput" type="datetime-local">
+        <form id="myForm">
+          <table class="table table-hover" id="myTable">
+            <tr id="rowId">
+              <td><input type="text" placeholder="Question1" class="form-control"></td>
+              <td><input type="text" placeholder="réponse 1" class="form-control col-sm-5"></td>
+              <td><input type="text" placeholder="réponse 2" class=" form-control col-sm-5"></td>
+              <td><input type="text" placeholder="réponse 3" class="form-control col-sm-5"></td>
+            </tr>
+          </table>
+        </form>
+        <button type="button" class=" btn btn-info   " (click)="newQ()">
+          Ajouter Questions
+        </button>
+        <button type="button pull-right" class=" btn btn-info" (click)="Anouterevaluation()" data-dismiss="modal"
+          data-toggle="modal" data-target="#evaluationcorrect">
+          Confirmer
+        </button>
+
+
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<div class="modal fade" id="myModalevaluationshow" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+
+        <table class="table table-striped">
+          <tr>
+            <th>Question</th>
+            <th>reponse1</th>
+            <th> reponse2</th>
+            <th>reponse3</th>
+          </tr>
+
+          <tr *ngFor="let evaluation of evaluations">
+
+            <td style="word-break:break-all; ">{{ evaluation.Question }}</td>
+            <td style="word-break:break-all; width: 10% ">{{ evaluation.reponse1 }} </td>
+            <td style="word-break:break-all; width: 10% ">{{ evaluation.reponse2 }} </td>
+            <td style="word-break:break-all; width: 10% ">{{ evaluation.reponse3 }} </td>
+
+          </tr>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<div class="modal fade" id="evaluationcorrect" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="myFormevo">
+          <table class="table table-striped">
+            <tr>
+              <th>Question</th>
+              <th>reponse1</th>
+              <th> reponse2</th>
+              <th>reponse3</th>
+            </tr>
+
+            <tr *ngFor="let evaluation of evaluations">
+
+              <td style="word-break:break-all; ">{{ evaluation.Question }}</td>
+              <td style="word-break:break-all; width: 10% ">{{ evaluation.reponse1 }} <input type="radio"
+                  name="{{ evaluation.Question }}" value="{{ evaluation.reponse1 }}"></td>
+              <td style="word-break:break-all; width: 10% ">{{ evaluation.reponse2 }} <input type="radio"
+                  name="{{ evaluation.Question }}" value="{{ evaluation.reponse2 }}"></td>
+              <td style="word-break:break-all; width: 10% ">{{ evaluation.reponse3 }} <input type="radio"
+                  name="{{ evaluation.Question }}" value="{{ evaluation.reponse3 }}"></td>
+
+            </tr>
+
+          </table>
+        </form>
+        <button type="button " (click)="eregestrercorrection()" data-dismiss="modal"
+          class="btn btn-info pull-right">Confirmer</button>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+<div class="modal fade" id="modifer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <!--Content-->
+    <div class="modal-content form-elegant">
+      <!--Header-->
+      <div class="modal-header text-center">
+        <h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="myModalLabel"><strong>Modifier les
+            coordonnées</strong></h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-4">
+        <form [formGroup]="Form" (ngSubmit)="modif()">
+          <div class="md-form mb-5">
+            <input type="text" id="Nom" formControlName="Nom" placeholder="Nom" class="form-control " required>
+          </div>
+
+          <div class="md-form mb-5">
+            <input type="text" id="Prenom" formControlName="Prenom" placeholder="Prenom" class="form-control " required>
+          </div>
+          <p class="text-danger">{{ errorMessage }}</p>
+          <div class="text-center mb-3">
+            <button type="submit"
+              class="  btn btn-info blue-gradient btn-block btn-rounded z-depth-1a">Confirmer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="myModalcomment" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-striped">
+          <tr>
+            <th>Dates</th>
+            <th>Commentaires</th>
+
+            <th>Supprimer</th>
+          </tr>
+
+          <tr *ngFor="let comm of commenters">
+
+            <td style="word-break:break-all; width: 19% ">{{ comm.datecoment }}</td>
+            <td style="word-break:break-all;">{{ comm.Commenter }}</td>
+
+            <td style="word-break:break-all; width: 10% ">
+              <button class="btn btn-info pull-right btn-sm" (click)="removecomment(comm)">
+                <i class="fa fa-trash" style="color:white;"></i>
+              </button>
+            </td>
+          </tr>
+        </table>
+        <form class="form-inline  " (ngSubmit)="commentercour()" [formGroup]="FormComment" role="form">
+          <input class="form-control col-sm-10" formControlName="textComment" type="text"
+            placeholder="Votre commentaire" />
+          <button type="submit" [disabled]="FormComment.invalid " class="btn btn-info">Ajouter</button>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<div class="modal fade" id="myModalcommentform" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-striped">
+          <tr>
+            <th>Dates</th>
+            <th>Commentaires</th>
+
+            <th>Supprimer</th>
+          </tr>
+
+          <tr *ngFor="let comm of commenters">
+
+            <td style="word-break:break-all; width: 19% ">{{ comm.datecoment }}</td>
+            <td style="word-break:break-all;">{{ comm.Commenter }}</td>
+
+            <td style="word-break:break-all; width: 10% ">
+              <button class="btn btn-info pull-right btn-sm" (click)="removecommentform(comm)">
+                <i class="fa fa-trash" style="color:white;"></i>
+              </button>
+            </td>
+          </tr>
+        </table>
+        <form class="form-inline  " (ngSubmit)="commenterform()" [formGroup]="FormComment" role="form">
+          <input class="form-control col-sm-10" formControlName="textComment" type="text"
+            placeholder="Votre commentaire" />
+          <button type="submit" [disabled]="FormComment.invalid " class="btn btn-info">Ajouter</button>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="myModaljaime" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-striped">
+          <tr>
+
+            <th>Nom</th>
+
+            <th>prénom</th>
+          </tr>
+
+          <tr *ngFor="let jaims of jaimes">
+
+            <td style="word-break:break-all; width: 19% ">{{ jaims.name }}</td>
+            <td style="word-break:break-all;">{{ jaims.prenom }}</td>
+
+
+          </tr>
+
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<div class="modal fade" id="MOdifsondage" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+
+
+        <div class="col-sm-12">
+          <form [formGroup]="sondageformmodif">
+            <input type="text" placeholder="Nom de l'événement" class="form-control " formControlName="form1">
+            <input type="text" placeholder="Nom de l'événement" class="form-control " formControlName="form2">
+            <input type="text" placeholder="Nom de l'événement" class="form-control " formControlName="form3">
+            <input type="text" placeholder="Nom de l'événement" class="form-control " formControlName="form4">
+            <input type="text" placeholder="Nom de l'événement" class="form-control " formControlName="form5">
+          </form>
+        </div>
+        <!--col-8-->
+
+
+        <div class="text-center">
+          <button data-dismiss="modal" (click)="modifsondage()" [disabled]="sondageformmodif.invalid"
+            style="color:white" class="btn btn-info"><i style="color:white" class="fa fa-paper-plane"></i>
+            Confirmer</button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="modal fade" id="myModalparticipants" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-striped">
+          <tr>
+
+            <th>Nom</th>
+
+            <th>prénom</th>
+          </tr>
+
+          <tr *ngFor="let pattii of pattiiss">
+
+            <td style="word-break:break-all; width: 19% ">{{ pattii.Nom }}</td>
+            <td style="word-break:break-all;">{{ pattii.prenom }}</td>
+
+
+          </tr>
+
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+</div>

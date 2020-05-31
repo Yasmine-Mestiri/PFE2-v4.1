@@ -1,0 +1,1077 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="card card-plain" *ngIf="isAuth">
+
+      <div class="card-header-info">
+
+        <h4><b>Bienvenue</b></h4>
+        {{ etudient.nom }}
+        {{ etudient.prenom }}
+
+
+        <button class="btn  btn-info  btn-round btn-just-icon " data-target="#modifer" data-toggle="modal">
+          <i class="material-icons">settings</i>
+          <div class="ripple-container"></div>
+        </button>
+
+        <div class="card-header-image">
+
+
+          <input type="file" name="file" (change)="detectFiles($event)" class="file-upload-native resizeinput"
+            accept="image/*" />
+          <img class="image-upload-wrapper" [src]="etudient.photo || ''">
+
+          <div id="tab" class="btn-group" data-toggle="buttons-radio">
+            <a id="messaaggee" class="buttonn button btn btn-secondary nav" data-toggle="tab" href="#Messagerie"
+              role="tab"><b>Messagerie</b></a>
+          </div>
+          <div id="tab" class="btn-group " data-toggle="buttons-radio">
+            <a id="evenement" class="buttonn button btn btn-secondary nav" data-toggle="tab" href="#evenementt"
+              role="tab"><b>Événement</b></a>
+          </div>
+          <div id="tab" class="btn-group" data-toggle="buttons-radio">
+            <a id="formationn"  class="buttonn button btn btn-secondary nav" data-toggle="tab" href="#Formation"
+              role="tab"><b>Formation</b></a>
+          </div>
+          <div class="  btn-group buttonn  ">
+            <a class="btn  btn-secondary button   dropdown-toggle" (click)="vider()" id="dropdownMenuButton" href=""
+              data-toggle="dropdown">
+              <b>Filiére</b>
+            </a>
+            <div class=" buttonn btn-group dropdown-menu " data-toggle="buttons-radio">
+              <li class="dropdown-header "><b>licence</b></li>
+              <li><a class="dropdown-item btn btn-secondary nav" data-toggle="tab"  (click)="ditectfilier('LAI')"
+                  href="#LAI" role="tab"><b>LAI</b></a></li>
+              <li><a class="dropdown-item btn btn-secondary nav" data-toggle="tab" href="#LFI" role="tab"><b>LFI</b></a>
+              </li>
+              <li><a class="dropdown-item btn btn-secondary nav" data-toggle="tab" href="#ARS" role="tab"><b>ARS</b></a>
+              </li>
+              <li class="dropdown-header"><b>Master</b></li>
+              <li><a class="dropdown-item btn btn-secondary nav" data-toggle="tab" href="#MP-ASSR"
+                  role="tab"><b>MP-ASSR</b></a></li>
+              <li><a class="dropdown-item btn btn-secondary nav" data-toggle="tab" href="#MP-TSD"
+                  role="tab"><b>MP-TSD</b></a></li>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+      <div class="row">
+
+
+        <div class="tab-content col-md-9">
+          <!--------------------------------------------Messagerie----------------------------------------->
+          <div id="Messagerie" class="tab-pane">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+
+                  <div class="container">
+                      <div data-toggle="buttons-radio">
+                          <a class="close btn-sm size nav btn"   data-toggle="tab" href="#home1" role="tab">&times;</a>
+                      </div>
+
+
+                    <div class="d-flex justify-content-center ">
+                      <div class="col-md-12 ">
+
+                        <nav class="nav nav-tabs justify-content-center">
+                          <div class="nav  nav-tabs nav-fill" id="nav-tab" role="tablist">
+
+                            <a class="nav-item nav-link  active" style="width: 373px" id="nav-Reçu-tab"
+                              data-toggle="tab" href="#nav-Reçu" role="tab" aria-controls="nav-Reçu"
+                              aria-selected="true"><b>Messages Reçus</b></a>
+                            <a class="nav-item nav-link" style="width: 373px" id="nav-Envoyé-tab" data-toggle="tab"
+                              href="#nav-Envoyé" role="tab" aria-controls="nav-Envoyé" aria-selected="false"><b>Messages
+                                Envoyés</b></a>
+                          </div>
+                        </nav>
+                        <div class="tab-content" id="nav-tabContent">
+                          <div class="tab-pane fade show active " id="nav-Reçu" role="tabpanel"
+                            aria-labelledby="nav-Reçu-tab">
+
+                            <table class="table table-striped">
+                              <tr>
+                                <th></th>
+                                <th>Source</th>
+                                <th>Sujet</th>
+                                <th>Message</th>
+                                <th>Date</th>
+                                <th>Ressource</th>
+                                <th>Répondre</th>
+                                <th>Supprimer</th>
+                              </tr>
+                              <tr *ngFor="let msg of msgs">
+                                <td class="inbox-small-cells" style="word-break:break-all; width: 1% "><i
+                                    class="fa fa-star"></i></td>
+                                <td style="word-break:break-all; width: 10% ">{{ msg.Source }}</td>
+                                <td style="word-break:break-all; width: 10%  ">{{ msg.Objet }}</td>
+                                <td style="word-break:break-all; ">{{ msg.Message }}</td>
+                                <td style="word-break:break-all; width: 20% ">{{ msg.Date }}</td>
+                                <td style="word-break:break-all; width: 10% ">
+                                  <a [href]="msg.Ressource" *ngIf="msg.Ressource ">
+                                    <button class="btn btn-info btn-sm">
+                                      <i class="fa fa-paperclip" style="color:white;"></i>
+                                    </button>
+                                  </a>
+                                </td>
+                                <td style="word-break:break-all; width: 10% ">
+                                  <button class="btn btn-info btn-sm" (click)="repondremesage(msg)" data-toggle="modal"
+                                    data-target="#repondremessage">
+                                    <i class="fa fa-envelope" style="color:white;"></i>
+                                  </button>
+                                </td>
+                                <td style="word-break:break-all; width: 10% ">
+                                  <button class="btn btn-info btn-sm" (click)="supprimermessageres(msg)">
+                                    <i class="fa fa-trash" style="color:white;"></i>
+                                  </button>
+                                </td>
+                              </tr>
+                            </table>
+
+                          </div>
+
+                          <div class="tab-pane fade" id="nav-Envoyé" role="tabpanel" aria-labelledby="nav-Envoyé-tab">
+                            <table class="table table-striped">
+                              <tr>
+                                <th></th>
+                                <th>Sources</th>
+                                <th>Sujets</th>
+                                <th>Messages</th>
+                                <th>Dates</th>
+                                <th>Supprimer</th>
+                              </tr>
+                              <tr *ngFor="let msge of msgse">
+                                <td class="inbox-small-cells" style="word-break:break-all; width: 1% "><i
+                                    class="fa fa-star"></i></td>
+                                <td style="word-break:break-all; width: 10% ">{{ msge.Source }}</td>
+                                <td style="word-break:break-all; width: 10%  ">{{ msge.Objet }}</td>
+                                <td style="word-break:break-all; ">{{ msge.Message }}</td>
+                                <td style="word-break:break-all; width: 20% ">{{ msge.Date }}</td>
+                                <td style="word-break:break-all; width: 10% ">
+                                  <button class="btn btn-info btn-sm" (click)="supprimermessageenv(msge)">
+                                    <i class="fa fa-trash" style="color:white;"></i>
+                                  </button>
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+                        </div>
+
+
+
+
+
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+
+          </div>
+          <!---------------------------------------evenementt------------------------------------------------>
+          <div id="evenementt" class="tab-pane">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  
+                  <div class="container">
+                      <div data-toggle="buttons-radio">
+                          <a class="close btn-sm size nav btn"   data-toggle="tab" href="#home1" role="tab">&times;</a>
+                      </div>
+                      <br>
+                    <h4 *ngIf="showeventsel" class="text-center card-title"><b>Événements sélectionnés </b></h4>
+                    <div *ngIf="showeventsel" class="d-flex justify-content-center ">
+                      <div class="col-md-12 ">
+
+                        <table class="table table-striped">
+                          <tr>
+                            <th>Photo</th>
+                            <th>Titre</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                            <th>Participez</th>
+                          </tr>
+
+                          <tr *ngFor="let showevente of showeventelect">
+                            <td style="word-break:break-all; "> <img class="image-upload-wrapper"
+                                [src]="showevente?.photo || '' "> </td>
+                            <td style="word-break:break-all; width: 20% ">{{ showevente.Nom }}</td>
+                            <td style="word-break:break-all; width: 60%  ">{{ showevente.Discription  }}</td>
+                            <td style="word-break:break-all; width: 12% ">{{ showevente.Temps }}</td>
+                            <td style="text-align: center;" *ngIf="(showevente.nbplace>showevente.nuberPartcipent)">
+                              <button *ngIf="!inscriiievent" (click)="check(showevente.Nom)" title="désinscrit"
+                                type="button" class="btn btn-info ">
+                                <i class="fa fa-plus"></i>
+                              </button>
+                              <button *ngIf="inscriiievent" (click)="check(showevente.Nom)" title="inscrit"
+                                type="button" class="btn btn-info ">
+                                <i class="fa fa-minus"></i>
+                              </button>
+                            </td>
+                          </tr>
+                        </table>
+
+                      </div>
+
+                    </div>
+                    <h4 class="text-center card-title"><b>À quelle événement voulez-vous participez :</b></h4>
+                    <div class="d-flex justify-content-center ">
+                      <div class="col-md-12 ">
+
+                        <table class="table table-striped">
+                          <tr>
+                            <th>Photo</th>
+                            <th>Titre</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                            <th>Participez</th>
+                          </tr>
+
+                          <tr *ngFor="let event of events">
+                            <td style="word-break:break-all; "> <img class="image-upload-wrapper"
+                                [src]="event?.photo || '' "> </td>
+                            <td style="word-break:break-all; width: 20% ">{{ event.Nom }}</td>
+                            <td style="word-break:break-all; width: 60%  ">{{ event.Discription  }}</td>
+                            <td style="word-break:break-all; width: 12% ">{{ event.Temps }}</td>
+                            <td style="text-align: center;" *ngIf="(event.nbplace>event.nuberPartcipent)">
+                              <button *ngIf="!inscriiievent" (click)="check(event.Nom)" title="Participer" type="button"
+                                class="btn btn-info ">
+                                <i class="fa fa-plus"></i>
+                              </button>
+                              <button *ngIf="inscriiievent" (click)="check(event.Nom)" title="s'abstenir" type="button"
+                                class="btn btn-info ">
+                                <i class="fa fa-minus"></i>
+                              </button>
+                            </td>
+                          </tr>
+                        </table>
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+
+            </div>
+          </div>
+          <!-------------------------------------sondage------------------------------------     -->
+          <div id="home1" class="tab-pane active">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="container">
+                    <h4 class="text-center card-title"><b> Les Sondages</b></h4>
+                    <div class="d-flex justify-content-center ">
+                      <div class="col-md-7 ">
+
+
+                        <div *ngFor="let sondformation of sondformations">
+                          <h4 class="text-center"><b>A quelle formation voulez-vous assistez :</b></h4>
+
+                          <div *ngIf="sondformation.forme1" (click)="progress1click(sondformation)" class="progress">
+                            <progress class="bar  " max="100" value="{{sondformation.forme1nbpers}}"></progress>
+                            <span class="progress-type">{{sondformation.forme1}}</span>
+                            <span class="progress-completed">{{sondformation.forme1nb}}
+                              ({{sondformation.forme1nbpers}}%)</span>
+                          </div>
+                          <div *ngIf="sondformation.forme2" (click)="progress2click(sondformation)" class="progress">
+                            <progress class="bar  " max="100" value="{{sondformation.forme2nbpers}}"></progress>
+                            <span class="progress-type">{{sondformation.forme2}}</span>
+                            <span class="progress-completed">{{sondformation.forme2nb}}
+                              ({{sondformation.forme2nbpers}}%)</span>
+                          </div>
+                          <div *ngIf="sondformation.forme3" (click)="progress3click(sondformation)" class="progress">
+                            <progress class="bar  " max="100" value="{{sondformation.forme3nbpers}}"></progress>
+                            <span class="progress-type">{{sondformation.forme3}}</span>
+                            <span class="progress-completed">{{sondformation.forme3nb}}
+                              ({{sondformation.forme3nbpers}}%)</span>
+                          </div>
+                          <div *ngIf="sondformation.forme4" (click)="progress4click(sondformation)" class="progress">
+                            <progress class="bar  " max="100" value="{{sondformation.forme4nbpers}}"></progress>
+                            <span class="progress-type">{{sondformation.forme4}}</span>
+                            <span class="progress-completed">{{sondformation.forme4nb}}
+                              ({{sondformation.forme4nbpers}}%)</span>
+                          </div>
+                          <div *ngIf="sondformation.forme5" (click)="progress5click(sondformation)" class="progress">
+                            <progress class="bar  " max="100" value="{{sondformation.forme5nbpers}}"></progress>
+                            <span class="progress-type">{{sondformation.forme5}}</span>
+                            <span class="progress-completed">{{sondformation.forme5nb}}
+                              ({{sondformation.forme5nbpers}}%)</span>
+                          </div>
+
+
+                        </div>
+
+
+
+                        <div *ngFor="let sondevenements of sondevenementss">
+                          <h4 class="text-center"><b>A quelle événement voulez-vous assistez :</b></h4>
+
+                          <div *ngIf="sondevenements.forme1" (click)="progress1clickev(sondevenements)"
+                            class="progress">
+                            <progress class="bar  " max="100" value="{{sondevenements.forme1nbpers}}"></progress>
+                            <span class="progress-type">{{sondevenements.forme1}}</span>
+                            <span class="progress-completed">{{sondevenements.forme1nb}}
+                              ({{sondevenements.forme1nbpers}}%)</span>
+                          </div>
+                          <div *ngIf="sondevenements.forme2" (click)="progress2clickev(sondevenements)"
+                            class="progress">
+                            <progress class="bar  " max="100" value="{{sondevenements.forme2nbpers}}"></progress>
+                            <span class="progress-type">{{sondevenements.forme2}}</span>
+                            <span class="progress-completed">{{sondevenements.forme2nb}}
+                              ({{sondevenements.forme2nbpers}}%)</span>
+                          </div>
+                          <div *ngIf="sondevenements.forme3" (click)="progress3clickev(sondevenements)"
+                            class="progress">
+                            <progress class="bar  " max="100" value="{{sondevenements.forme3nbpers}}"></progress>
+                            <span class="progress-type">{{sondevenements.forme3}}</span>
+                            <span class="progress-completed">{{sondevenements.forme3nb}}
+                              ({{sondevenements.forme3nbpers}}%)</span>
+                          </div>
+                          <div *ngIf="sondevenements.forme4" (click)="progress4clickev(sondevenements)"
+                            class="progress">
+                            <progress class="bar  " max="100" value="{{sondevenements.forme4nbpers}}"></progress>
+                            <span class="progress-type">{{sondevenements.forme4}}</span>
+                            <span class="progress-completed">{{sondevenements.forme4nb}}
+                              ({{sondevenements.forme4nbpers}}%)</span>
+                          </div>
+                          <div *ngIf="sondevenements.forme5" (click)="progress5clickev(sondevenements)"
+                            class="progress">
+                            <progress class="bar  " max="100" value="{{sondevenements.forme5nbpers}}"></progress>
+                            <span class="progress-type">{{sondevenements.forme5}}</span>
+                            <span class="progress-completed">{{sondevenements.forme5nb}}
+                              ({{sondevenements.forme5nbpers}}%)</span>
+                          </div>
+
+
+                        </div>
+
+
+
+
+
+
+
+                      </div>
+
+
+
+
+
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+
+          </div>
+          <!----------------------------------Cours--------------------------------->
+          <div id="LAI" class="tab-pane ">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="container">
+                      <div data-toggle="buttons-radio">
+                          <a class="close btn-sm size nav btn"   data-toggle="tab" href="#home1" role="tab">&times;</a>
+                      </div>
+
+
+                    <div class="d-flex justify-content-center ">
+                      <div class="col-md-12 " data-toggle="buttons-radio">
+
+                        
+
+                        <nav class="justify-content-center ">
+                          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" style="width: 136px" id="nav-Premiére-tab-LAI"
+                              data-toggle="tab" (click)="ditectnivou('Premiére')" href="#nav-Premiére" role="tab"
+                              aria-controls="nav-Premiére-LAI" aria-selected="true"><b>Premiére</b></a>
+                            <a class="nav-item nav-link" style="width: 136px" id="nav-Deuxième-tab-LAI"
+                              data-toggle="tab" href="#nav-Deuxième" (click)="ditectnivou('Deuxième')" role="tab"
+                              aria-controls="nav-Deuxième-LAI" aria-selected="false"><b>Deuxième</b></a>
+                            <a class="nav-item nav-link" style="width: 136px" id="nav-Troisième-tab-LAI"
+                              data-toggle="tab" href="#nav-Troisième" (click)="ditectnivou('Troisième')" role="tab"
+                              aria-controls="nav-Troisième-LAI" aria-selected="false"><b>Troisième</b></a>
+                          </div>
+                        </nav>
+                        <div class="tab-content justify-content-center  " id="nav-tabContent">
+                          <div *ngIf="show()" class="tab-pane fade show active " id="nav-Premiére-LAI" role="tabpanel"
+                            aria-labelledby="nav-Premiére-tab-LAI">
+
+                            <div class="row">
+                              <div *ngFor="let cour of cours">
+                                <div class="card " style="width: 200px;height: 200px;text-align: center;margin: 10px">
+                                  <div class="card-body">
+                                    <h1>{{ cour.Matiere }}</h1>
+                                    <h4>{{ cour.nomens }} {{ cour.prenomens }}</h4>
+                                  </div>
+                                  <div class="card-footer justify-content-center">
+                                    <button type="button" class="btn   btn-info " (click)="ditectcour(cour)"
+                                      data-toggle="modal" data-target="#myModal">Cours</button>
+                                  </div>
+                                </div>
+                              </div>
+
+
+                            </div>
+
+
+
+
+                          </div>
+                          <div class="tab-pane fade" id="nav-Deuxième-LAI" role="tabpanel"
+                            aria-labelledby="nav-Deuxième-tab-LAI">
+                            <div class="row">
+                              <div *ngFor="let cour of cours">
+                                <div class="card " style="width: 200px;height: 200px;text-align: center;margin: 10px">
+                                  <div class="card-body">
+                                    <h1>{{ cour.Matiere }}</h1>
+                                    <h4>{{ cour.nomens }} {{ cour.prenomens }}</h4>
+                                  </div>
+                                  <div class="card-footer justify-content-center">
+                                    <button type="button" class="btn   btn-info " (click)="ditectcour(cour)"
+                                      data-toggle="modal" data-target="#myModal">Cours</button>
+                                  </div>
+                                </div>
+                              </div>
+
+
+                            </div>
+
+                          </div>
+                          <div class="tab-pane fade" id="nav-Troisième-LAI" role="tabpanel"
+                            aria-labelledby="nav-Troisième-tab-LAI">
+                            <div class="row">
+                              <div *ngFor="let cour of cours">
+                                <div class="card " style="width: 200px;height: 200px;text-align: center;margin: 10px">
+                                  <div class="card-body">
+                                    <h1>{{ cour.Matiere }}</h1>
+                                    <h4>{{ cour.nomens }} {{ cour.prenomens }}</h4>
+                                  </div>
+                                  <div class="card-footer justify-content-center">
+                                    <button type="button" class="btn   btn-info " (click)="ditectcour(cour)"
+                                      data-toggle="modal" data-target="#myModal">Cours</button>
+                                  </div>
+                                </div>
+                              </div>
+
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--------------------------------------------------formation page 2---------------------------------------------------------->
+          <div id="formation22" class="tab-pane ">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="container">
+                      <div data-toggle="buttons-radio">
+                          <a class="close btn-sm size nav btn"   data-toggle="tab" href="#home1" role="tab">&times;</a>
+                      </div>
+
+                    <h3 style="text-align: center">
+                      <button type="button" title="Libelle" class="btn btn-info "
+                        (click)="detectformation(nomformation)" data-toggle="modal"
+                        data-target="#myModalafichherddetail">
+                        <b>{{ nomformation }}</b>
+                      </button>
+                    </h3>
+                    <button title="Message" type="button" data-toggle="modal" data-target="#envoyermsg"
+                      class="btn btn-info ">
+                      <i class="fa fa-envelope"></i> Envoyer email a l'ensegniant
+                    </button>
+                    <div class="card ">
+                      <!--Ressources-->
+                      <h4><b>Les ressources:</b></h4>
+                      <table class="table table-striped">
+                        <tr>
+                          <th>Chapitre</th>
+                          <th>Détail</th>
+                          <th>Cours PDF</th>
+                          <th>Cours Vidéos</th>
+                        </tr>
+
+                        <tr *ngFor="let Forma of Formas">
+
+                          <td style="word-break:break-all; width: 10% ">{{ Forma.Chapiter }}</td>
+                          <td style="word-break:break-all;">{{ Forma.Detail }}</td>
+
+
+                          <td style="word-break:break-all; width: 10% ">
+                            <a [href]="Forma.PDF" *ngIf="Forma.PDF !== 'undefined'">
+                              <button title="télécharger" type="button" class="btn btn-info ">
+                                <i class="fa fa-download"></i>
+                              </button>
+                            </a>
+                          </td>
+                          <td style="word-break:break-all; width: 10% ">
+
+                            <button type="button" *ngIf="Forma.Video !== 'undefined' " title="Vidéos"
+                              class="btn btn-info " (click)="playvidformation(Forma)" data-toggle="modal"
+                              data-target="#myvideoform">
+                              <i class="fa fa-video-camera"></i>
+
+                            </button>
+                          </td>
+                        </tr>
+
+                      </table>
+                    </div>
+                    <div class="card">
+                      <!--Évaluation-->
+                      <h4><b>Évaluation:</b></h4>
+                      <table class="table table-striped">
+                        <tr>
+                          <th>Filiéres</th>
+                          <th>Date</th>
+                          <th *ngIf="dateshow &&!showscoore">Évaluation</th>
+                          <th *ngIf="!dateshow "></th>
+                          <th *ngIf="showscoore">Score</th>
+                          <th *ngIf="!showscoore">Inscription</th>
+
+                        </tr>
+                        <tr *ngFor="let Formase of Formasev">
+
+                          <td style="word-break:break-all; width: 10% ">{{ Formase.Class }}</td>
+                          <td style="word-break:break-all;">{{ Formase.Date }}</td>
+                          <td  style="word-break:break-all; width: 10% ">
+                            <button *ngIf="dateshow && inscriii && !showscoore" type="button" title="Evaluations"
+                              (click)="evaluationshow(Formase)" data-toggle="modal" data-target="#Evaluation"
+                              class="btn btn-info ">
+                              <i class="fa fa-book"></i>
+                            </button>
+                            <b *ngIf="showscoore"> {{ finalscooree }} </b>
+                          </td>
+
+                          <td *ngIf="!showscoore" style="word-break:break-all; width: 10% ">
+                            <button type="button" *ngIf="!inscriii" title="Participer" class="btn btn-info "
+                              (click)="inscri(Formase)">
+                              <i class="fa fa-plus"></i>
+                            </button>
+                            <button type="button" *ngIf="inscriii" title="Participer" class="btn btn-info "
+                              (click)="removeinscri(Formase)">
+                              <i class="fa fa-minus"></i>
+                            </button>
+                          </td>
+
+
+
+                        </tr>
+
+                      </table>
+
+
+                    </div>
+
+
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!------------------------------------------Formation------------------------------------------->
+          <div id="Formation" class="tab-pane ">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="container">
+                      <div data-toggle="buttons-radio">
+                          <a class="close btn-sm size nav btn"   data-toggle="tab" href="#home1" role="tab">&times;</a>
+                      </div>
+
+                    <div class="d-flex justify-content-center ">
+                      <div class="col-md-12 " data-toggle="buttons-radio">
+
+                        <h1 style="text-align:center">Listes Des Formations Accélérées</h1>
+                        <div class="row">
+
+
+                          <div *ngFor="let formation of formations" class="flip-card"  >
+                            <div class="flip-card-inner"  >
+                              <div class="flip-card-front">
+
+
+                                <img [src]="formation.photo ||''" alt="Avatar" style="width:200px;height:200px;">
+                              </div>
+                              <div class="flip-card-back"  >
+                                <h1>{{formation.Libelle}}</h1>
+                                <h6>{{formation.NomEnsegnient }} {{formation.PrenomEnsegnient }}</h6>
+                                <div  class="btn-group " >
+                                  <a data-toggle="buttons-radio"  class="buttonn button btn btn-secondary nav" (click)="ditectformation(formation)"
+                                    data-toggle="tab" href="#formation22" role="tab" ><b>Détails</b></a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+        <!--------------------------------------------------------------------------->
+
+
+        <!-----------------------------------  Calendrier-------------------------------------------------->
+        <div class="col-md-3">
+          <div class="card-body">
+
+
+            <div class="mobile-wrapper">
+              <section class="today-box" id="today-box">
+                <span>Aujourd'hui</span>
+
+                <h3 class="date-title " ng-app="myApp" ng-controller="datCtrl">{{ today | date }}</h3>
+
+                <div class="plus-icon">
+                  <i class="ion ion-ios-add"></i>
+                </div>
+              </section>
+
+              <!--======= Upcoming Events =======-->
+
+              <section class="upcoming-events">
+                <button title="Evenet" type="button"
+                  style="background:#485fed;margin-top: 50px;margin-left: 18px;margin-bottom: -50px" data-toggle="modal"
+                  data-target="#showevent" class="btn  btn-xs btn-info ">
+                  <i class="fa fa-archive" style="color:white;"></i>Les archives événements
+                </button>
+                <div class="container">
+
+
+                  <h3>
+                    Aujourd'hui
+                  </h3>
+                  <div class=" events-wrapper">
+                    <div class="event active " (click)="showwtbd(eventsau)" *ngFor="let eventsau of eventsaujord">
+                      <i class="ion ion-ios-radio-button-on icon-in-active-mode"></i>
+                      <h4 class="event__point">{{ eventsau.Temps }}</h4>
+                      <h3><b>{{ eventsau.Nom }}</b></h3>
+                      <p class="event__description">
+                        {{ eventsau.Discription }}
+                      </p>
+                    </div>
+                  </div>
+                  <h3>
+                    Les prochains événements
+                  </h3>
+                  <div class="events-wrapper">
+                    <div class="event active" (click)="showwtbd(eventspro)" *ngFor="let eventspro of eventspros">
+                      <i class="ion ion-ios-radio-button-on icon-in-active-mode"></i>
+                      <h4 class="event__point">{{ eventspro.Temps }}</h4>
+                      <h3><b>{{ eventspro.Nom }}</b></h3>
+                      <p class="event__description">
+                        {{ eventspro.Discription }}
+                      </p>
+                    </div>
+                  </div>
+
+
+
+
+                </div>
+              </section>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+  </div>
+
+</div>
+<!--------------------------ebnement show archive--------------------------->
+<div class="modal fade" id="showevent" role="dialog">
+  <div class="modal-dialog modal-md">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h1 style="text-align:center"><b>Les derniers événements</b></h1>
+        <section class="upcoming-events">
+          <div class="container">
+            <div class="events-wrapper">
+              <div class="event active" (click)="showwtbd(eventspro)" *ngFor="let eventsproseee of eventsproseeedddd">
+                <i class="ion ion-ios-radio-button-on icon-in-active-mode"></i>
+                <h4 class="event__point">{{ eventsproseee.Temps }}</h4>
+                <h3><b>{{ eventsproseee.Nom }}</b></h3>
+                <p class="event__description">
+                  {{ eventsproseee.Discription }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!--------------------------------- repondre message -------------->
+<div class="modal fade" id="repondremessage" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" (ngSubmit)="sendmesintrep()" [formGroup]="Messagerep">
+
+
+          <input class="form-control" name="objet" id="objet" placeholder="Objet..." formControlName="objet" /><br>
+          <textarea class="form-control" name="text" id="text" formControlName="text" placeholder="Votre message"
+            style="height:150px;"></textarea><br>
+
+          <p class="text-danger">{{ errorMessage }}</p>
+          <input type="submit" [disabled]="Messagerep.invalid" class="btn btn-info pull-right" value="Envoyer"><br>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!------------------------ modifer cordoner ----------------------------------------->
+
+<div class="modal fade" id="modifer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content form-elegant">
+      <div class="modal-header text-center">
+        <h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="myModalLabel"><strong>Modifier les
+            coordonnées</strong></h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-4">
+        <form [formGroup]="Form" (ngSubmit)="modif()">
+          <div class="md-form mb-5">
+            <input type="text" id="Nom" formControlName="Nom" placeholder="Nom" class="form-control " required>
+          </div>
+
+          <div class="md-form mb-5">
+            <input type="text" id="Prenom" formControlName="Prenom" placeholder="Prenom" class="form-control " required>
+          </div>
+          <p class="text-danger">{{ errorMessage }}</p>
+          <div class="text-center mb-3">
+            <button type="submit"
+              class="  btn btn-info blue-gradient btn-block btn-rounded z-depth-1a">Confirmer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!------------------------------------ envoyer message ---------------------------------------------->
+
+<div class="modal fade" id="envoyermsg" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+
+        <form method="POST" (ngSubmit)="sendmesg()" [formGroup]="Messageformation">
+          <input class="form-control" name="Sujet" id="Sujet" placeholder="Sujet..." formControlName="Sujet" /><br>
+          <textarea class="form-control" name="text" id="text" formControlName="text" placeholder="Votre message"
+            style="height:150px;"></textarea><br>
+
+          <button type="submit" [disabled]="Messageformation.invalid"
+            class="btn btn-info pull-right">Envoyer</button><br>
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<!--    datil formation-->
+<div class="modal fade" id="myModalafichherddetail" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h1 style="text-align:center">Détail Formations</h1>
+        <div *ngFor="let formatio of formationss">
+          <h3 style="text-align:center">{{formatio.Libelle}}</h3>
+          <b>-Compétences:</b> {{formatio.Competences}}<br><br>
+          <b>-Description:</b> {{formatio.Description}}<br><br>
+          <b>-Prérequis:</b> {{formatio.Prerequis}}<br><br>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-----------------------------evaluation model-------------------------------->
+<div class="modal fade" id="Evaluation" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="myFormevo">
+          <table class="table table-striped">
+            <tr>
+              <th>Les questions</th>
+              <th>réponse1</th>
+              <th>réponse2</th>
+              <th>réponse3</th>
+            </tr>
+
+            <tr *ngFor="let evaluation of evaluations">
+
+              <td style="word-break:break-all; ">{{ evaluation.Question }}</td>
+              <td *ngIf="evaluation.reponse1" style="word-break:break-all; width: 10% ">{{ evaluation.reponse1 }} <input
+                  type="radio" name="{{ evaluation.Question }}" value="{{ evaluation.reponse1 }}"></td>
+              <td *ngIf="evaluation.reponse2" style="word-break:break-all; width: 10% ">{{ evaluation.reponse2 }} <input
+                  type="radio" name="{{ evaluation.Question }}" value="{{ evaluation.reponse2 }}"></td>
+              <td *ngIf="evaluation.reponse3" style="word-break:break-all; width: 10% ">{{ evaluation.reponse3 }} <input
+                  type="radio" name="{{ evaluation.Question }}" value="{{ evaluation.reponse3 }}"></td>
+
+            </tr>
+
+          </table>
+        </form>
+        <button type="button " (click)="correction()" data-dismiss="modal"
+          class="btn btn-info pull-right">Confirmer</button>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+<!--------------------------------------videoooo model----------------------------------------------->
+<div class="modal fade" id="myvideoform" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+
+
+      <div class="modal-body">
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <!-- 16:9 aspect ratio -->
+        <p align="center"> <iframe id="video" width="420" height="315" src="" frameborder="0" allowfullscreen></iframe>
+        </p>
+
+
+        <div class="detailBox">
+          <div class="titleBox">
+
+            <label>Boîte de commentaires </label>
+            <i class="  hey " (click)="addlikeform()"> <span> {{ nuberjaimeform }}</span><span> J'aime!</span> </i>
+          </div>
+          <div class="actionBox">
+
+            <ul *ngFor="let comm of commenters " class="commentList">
+              <li>
+
+                <img class="commenterImage" [src]="comm.photo || ''" />
+
+
+                <p class="commentText">{{comm.Commenter  }} <button *ngIf=" comm.numetud == uidet "
+                    class="btn btn-info pull-right btn-sm" (click)="removecommentform(comm.datecoment)">
+                    <i class="fa fa-trash" style="color:white;"></i>
+                  </button></p>
+                <span class="date sub-text">on {{ comm.datecoment}}</span>
+
+              </li>
+
+            </ul>
+
+
+            <form class="form-inline  " (ngSubmit)="commenterform()" [formGroup]="FormComment" role="form">
+              <input class="form-control col-sm-9" formControlName="textComment" type="text"
+                placeholder="Votre commentaires" />
+              <button type="submit" [disabled]="FormComment.invalid " class="btn btn-info">Ajouter</button>
+
+            </form>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-------------------------------------------cour--------------------------------------->
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-striped">
+          <tr>
+            <th>Commentaire</th>
+            <th> Cours PDF</th>
+            <th>Cours Vidéos</th>
+          </tr>
+
+          <tr *ngFor="let cour of courss">
+
+            <td style="word-break:break-all;">{{ cour.Comment }}</td>
+            <td style="word-break:break-all; width: 10% ">
+              <a [href]="cour.PDF" *ngIf="cour.PDF !== 'undefined'">
+                <button title="télécharger" type="button" class="btn btn-info ">
+                  <i class="fa fa-download"></i>
+                </button>
+              </a>
+            </td>
+            <td style="word-break:break-all; width: 10% ">
+
+              <button type="button" *ngIf="cour.Video !== 'undefined' " title="Vidéos" class="btn btn-info "
+                (click)="play(cour.Video)" data-toggle="modal" data-target="#myvideo">
+                <i class="fa fa-video-camera"></i>
+
+              </button>
+            </td>
+          </tr>
+
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="modal fade" id="myvideo" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+
+
+      <div class="modal-body">
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <!-- 16:9 aspect ratio -->
+        <p align="center"> <iframe id="videocour" width="420" height="315" src="" frameborder="0"
+            allowfullscreen></iframe></p>
+
+
+        <div class="detailBox">
+          <div class="titleBox">
+
+            <label>Boîte de commentaire </label>
+            <i class="  hey " (click)="addlike()"> <span> {{ nuberjaime }}</span><span> J'aime!</span> </i>
+          </div>
+          <div class="actionBox" (click)="laodcomment()">
+
+            <ul *ngFor="let comm of commenters " class="commentList">
+              <li>
+
+                <img class="commenterImage" [src]="comm.photo || ''" />
+
+
+                <p class="commentText">{{comm.Commenter  }} <button *ngIf=" comm.numetud == uidet "
+                    class="btn btn-info pull-right btn-sm" (click)="removecomment(comm.datecoment)">
+                    <i class="fa fa-trash" style="color:white;"></i>
+                  </button></p>
+                <span class="date sub-text">on {{ comm.datecoment}}</span>
+
+              </li>
+
+            </ul>
+
+
+            <form class="form-inline  " (ngSubmit)="commentercour()" [formGroup]="FormComment" role="form">
+              <input class="form-control col-sm-9" formControlName="textComment" type="text"
+                placeholder="Votre commentaire" />
+              <button type="submit" [disabled]="FormComment.invalid " class="btn btn-info">Ajouter</button>
+
+            </form>
+          </div>
+        </div>
+
+
+
+
+
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
